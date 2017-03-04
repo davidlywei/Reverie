@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -9,32 +11,31 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionType : BindableObject
+    class QuestionType : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private int idValue;
 
-        public static readonly BindableProperty IsEnabledProperty =
-            BindableProperty.Create("IsEnabled", typeof(bool), typeof(QuestionType), false);
+        private bool isEnabled;
         public bool IsEnabled
         {
-            get { return (bool) GetValue(IsExpandedProperty); }
-            set { SetValue(IsExpandedProperty, value); } 
+            set { setValue(ref isEnabled, value); }
+            get { return isEnabled; }
         }
 
-        public static readonly BindableProperty IsExpandedProperty =
-            BindableProperty.Create("IsExpanded", typeof(bool), typeof(QuestionType), false);
+        private bool isExpanded;
         public bool IsExpanded
         {
-            get { return (bool) GetValue(IsExpandedProperty); }
-            set { SetValue(IsExpandedProperty, value); } 
+            set { setValue(ref isExpanded, value); }
+            get { return isExpanded; }
         }
 
-        public static readonly BindableProperty TitleProperty =
-            BindableProperty.Create("Title", typeof(String), typeof(QuestionType), "Default Title");
+        private String title;
         public String Title
         {
-            get { return (String) GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); } 
+            set { setValue(ref title, value); }
+            get { return title; }
         }
 
         public QuestionType(String t, int id, bool enabled)
@@ -42,6 +43,7 @@ namespace Reverie
             Title = t;
             idValue = id;
             IsEnabled = enabled;
+            IsExpanded = false;
         }
 
         public String toString()
@@ -55,6 +57,23 @@ namespace Reverie
         public void selected()
         {
             IsExpanded = !IsExpanded;
+
+            Title = "Selected now";
+        }
+
+        void setValue<T>(ref T variable, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!Object.Equals(variable, value))
+            {
+                variable = value;
+                OnPropertyChanged(propertyName);
+            }
+        }
+
+        protected virtual void OnPropertyChanged(String property)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
     }
 }

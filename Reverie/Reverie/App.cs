@@ -9,14 +9,14 @@ namespace Reverie
 {
     public class App : Application
     {
-        View view;
+        ViewController view;
 
         public App()
         {
             // Instantiate it with a new controller
-            view = new View();
+            view = new ViewController();
 
-            MainPage = new NavigationPage(new View());
+            MainPage = new NavigationPage(new ViewController());
 
             // Set Styles from PhotoFrameStyles file and 
             // load it into the default dictionary.

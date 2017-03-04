@@ -13,23 +13,24 @@ namespace Reverie
         private StackLayout cellView;
         private StackLayout childrenLayout;
 
-        public static readonly BindableProperty IsExpandedProperty =
-            BindableProperty.Create("IsExpanded", typeof(bool), typeof(QuestionType), false);
-        public bool IsExpanded
-        {
-            get { return (bool) GetValue(IsExpandedProperty); }
-            set { SetValue(IsExpandedProperty, value); } 
-        }
+        private Label clickedLabel;
+        private int numClicks;
 
         public QuestionCell()
         {
+            numClicks = 0;
+
             titleLabel = new Label();
 
             titleLabel.SetBinding(Label.TextProperty, "Title");
 
+            clickedLabel = new Label() { Text = "Click # " + numClicks };
+
+            createChildrenLayout();
+
             cellView = new StackLayout()
             {
-                Children = { titleLabel }
+                Children = { titleLabel, clickedLabel, childrenLayout}
             };
 
             // Bind cell visibility to IsEnabled property of QuestionType
@@ -37,19 +38,17 @@ namespace Reverie
             // Toggle height based off of visibility 
             cellView.PropertyChanged += layoutPropertyChangedHandler;
 
-            // Bind IsExpanded property to IsExpanded property of QuestionType
-            //this.SetBinding(IsExpandedProperty, "IsExpanded");
-            // Is Expanded property Change handler.
-            //this.PropertyChanged += OnExpanded;
-
-            createChildrenLayout();
-
             View = cellView;
         }
 
         private void createChildrenLayout()
         {
             childrenLayout = new StackLayout() { Children = { new Label() { Text = "Expanded" } } };
+            
+            // Bind IsExpanded property to IsExpanded property of QuestionType
+            childrenLayout.SetBinding(StackLayout.IsEnabledProperty, "IsExpanded");
+            // Is Expanded property Change handler.
+            childrenLayout.PropertyChanged += expandedPropertyChangeHandler;
         }
 
         private void layoutPropertyChangedHandler(object s, EventArgs e)
@@ -62,17 +61,23 @@ namespace Reverie
             {
                 cellView.HeightRequest = titleLabel.Height;
 
-                if (IsExpanded == true)
-                    cellView.HeightRequest = cellView.Height + childrenLayout.Height;
+                // Xamarin hates these lines of code... do not use
+                //if (childrenLayout.IsEnabled == true)
+                //    cellView.HeightRequest = titleLabel.Height + childrenLayout.Height;
             }            
         }
 
-        private void OnExpanded(object s, EventArgs e)
+        private void expandedPropertyChangeHandler(object s, EventArgs e)
         {
-            if (IsExpanded)
+            numClicks++;
+            clickedLabel.Text = "Click # " + numClicks ;
+
+            /*
+            if (childrenLayout.IsEnabled)
                 cellView.Children.Add(childrenLayout);
             else
                 cellView.Children.Remove(childrenLayout);
+                */
         }
     }
 }

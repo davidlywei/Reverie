@@ -36,7 +36,7 @@ namespace Reverie
             }
         };
 
-        public static Style PAGE_STYLE = new Style(typeof(View))
+        public static Style PAGE_STYLE = new Style(typeof(ViewController))
         {
             Setters =
             {

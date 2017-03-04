@@ -16,7 +16,7 @@ namespace Reverie
             ObservableCollection<QuestionType> list = new ObservableCollection<QuestionType>();
 
             for (int i = 0; i < 10; i++)
-                list.Add(new QuestionType("Question #" + i, i, true));
+                list.Add(new QuestionType("Question #" + i, i, (i % 2 == 0)?true:false));
 
             // Set template for items
             ItemTemplate = new DataTemplate(typeof(QuestionCell));
