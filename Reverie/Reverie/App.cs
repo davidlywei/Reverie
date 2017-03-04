@@ -9,25 +9,23 @@ namespace Reverie
 {
     public class App : Application
     {
+        View view;
+
         public App()
         {
-            // The root page of your application
-            var content = new ContentPage
-            {
-                Title = "Reverie",
-                Content = new StackLayout
-                {
-                    VerticalOptions = LayoutOptions.Center,
-                    Children = {
-                        new Label {
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms!"
-                        }
-                    }
-                }
-            };
+            // Instantiate it with a new controller
+            view = new View();
 
-            MainPage = new NavigationPage(content);
+            MainPage = new NavigationPage(new View());
+
+            // Set Styles from PhotoFrameStyles file and 
+            // load it into the default dictionary.
+            Current.Resources = new ResourceDictionary();
+
+            foreach (Style s in ReverieStyles.STYLES)
+            {
+                Current.Resources.Add(s);
+            }
         }
 
         protected override void OnStart()
