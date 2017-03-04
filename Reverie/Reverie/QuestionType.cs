@@ -57,8 +57,6 @@ namespace Reverie
         public void selected()
         {
             IsExpanded = !IsExpanded;
-
-            Title = "Selected now";
         }
 
         void setValue<T>(ref T variable, T value, [CallerMemberName] string propertyName = null)

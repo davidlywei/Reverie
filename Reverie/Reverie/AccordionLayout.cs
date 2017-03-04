@@ -30,7 +30,7 @@ namespace Reverie
             ItemTapped += OnSelection;
         }
 
-        void OnSelection(object sender, ItemTappedEventArgs e)
+        void OnSelection(object s, ItemTappedEventArgs e)
         {
             if (e.Item == null)
             {
@@ -40,6 +40,8 @@ namespace Reverie
             {
                 ((QuestionType)e.Item).selected();
             }
+
+            ((ListView)s).SelectedItem = null;
         }
     }
 }

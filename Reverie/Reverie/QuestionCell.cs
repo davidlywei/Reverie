@@ -12,25 +12,26 @@ namespace Reverie
         private Label titleLabel;
         private StackLayout cellView;
         private StackLayout childrenLayout;
+        private bool isExpanded;
 
-        private Label clickedLabel;
-        private int numClicks;
+        private Label tempCell;
+        private int numClicked;
 
         public QuestionCell()
         {
-            numClicks = 0;
-
             titleLabel = new Label();
 
-            titleLabel.SetBinding(Label.TextProperty, "Title");
+            numClicked = 0;
 
-            clickedLabel = new Label() { Text = "Click # " + numClicks };
+            tempCell = new Label() { Text = "I'm a temporary child!" };
+
+            titleLabel.SetBinding(Label.TextProperty, "Title");
 
             createChildrenLayout();
 
             cellView = new StackLayout()
             {
-                Children = { titleLabel, clickedLabel, childrenLayout}
+                Children = { titleLabel, childrenLayout}
             };
 
             // Bind cell visibility to IsEnabled property of QuestionType
@@ -43,8 +44,8 @@ namespace Reverie
 
         private void createChildrenLayout()
         {
-            childrenLayout = new StackLayout() { Children = { new Label() { Text = "Expanded" } } };
-            
+            childrenLayout = new StackLayout();
+
             // Bind IsExpanded property to IsExpanded property of QuestionType
             childrenLayout.SetBinding(StackLayout.IsEnabledProperty, "IsExpanded");
             // Is Expanded property Change handler.
@@ -55,29 +56,28 @@ namespace Reverie
         {
             if (cellView.IsVisible == false)
             {
+                // Make height of cells 0 when invisible so it does not take up space
                 cellView.HeightRequest = 0;
             }
             else
             {
-                cellView.HeightRequest = titleLabel.Height;
-
-                // Xamarin hates these lines of code... do not use
-                //if (childrenLayout.IsEnabled == true)
-                //    cellView.HeightRequest = titleLabel.Height + childrenLayout.Height;
+                // Make height of cells back to default when it is visible
+                cellView.HeightRequest = -1;
             }            
         }
 
         private void expandedPropertyChangeHandler(object s, EventArgs e)
         {
-            numClicks++;
-            clickedLabel.Text = "Click # " + numClicks ;
+            if (childrenLayout.IsEnabled != isExpanded)
+            {
+                isExpanded = childrenLayout.IsEnabled;
+                numClicked++;
 
-            /*
-            if (childrenLayout.IsEnabled)
-                cellView.Children.Add(childrenLayout);
-            else
-                cellView.Children.Remove(childrenLayout);
-                */
+                if (isExpanded)
+                    childrenLayout.Children.Add(tempCell);
+                else
+                    childrenLayout.Children.Remove(tempCell);
+            }
         }
     }
 }
