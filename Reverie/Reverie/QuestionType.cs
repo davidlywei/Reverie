@@ -38,6 +38,13 @@ namespace Reverie
             get { return title; }
         }
 
+        private String childrenJSON;
+        public String ChildrenJSON
+        {
+            set { setValue(ref childrenJSON, value); }
+            get { return childrenJSON; }
+        }
+
         public QuestionType(String s)
         {
             parseString(s);
@@ -47,8 +54,10 @@ namespace Reverie
 
         public void parseString(String input)
         {
-            char[] delimiters = { '{', '\"', ':', ',', '[', ']', '}' };
-            String[] words = input.Split(delimiters);
+            // remove string for children
+            ChildrenJSON = input.Substring(input.IndexOf(ReverieUtils.JSON_TAG_QLIST));
+
+            String[] words = input.Split(ReverieUtils.DELIMITERS);
 
             // Remove empty strings
             words = words.Where(s => !string.IsNullOrEmpty(s)).ToArray();

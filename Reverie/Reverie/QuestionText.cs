@@ -14,19 +14,8 @@ namespace Reverie
         private String prompt;
         private Entry entry;
         private String placeholder;
-        private const String TYPE = "Text";
 
-        QuestionText(String p)
-        {
-            parseString(p);
-        }
-
-        private void parseString(String p)
-        {
-            
-        }
-
-        private void buildQuestionText(String p, String h)
+        public QuestionText(String p, String h)
         {
             prompt = p;
             placeholder = h;
@@ -54,6 +43,11 @@ namespace Reverie
             return entry.Text;
         }
 
+        public String getPrompt()
+        {
+            return prompt;
+        }
+
         public String toString()
         {
             /*
@@ -71,7 +65,7 @@ namespace Reverie
             return Encoding.UTF8.GetString(json, 0, json.Length);
             */
 
-            return " { 'Type': '" + TYPE + "', 'Prompt': '" + prompt + "', 'Placeholder': '" + placeholder + "'}";
+            return " { 'Type': '" + ReverieUtils.QUESTION_TEXT + "', 'Prompt': '" + prompt + "', 'Placeholder': '" + placeholder + "'}";
         }
     }
 }

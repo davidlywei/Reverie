@@ -17,13 +17,29 @@ namespace Reverie
         private Label tempCell;
         private int numClicked;
 
+        private List<Question> qList;
+        private Dictionary<String, String> questionHistory;
+
+        private static readonly BindableProperty ChildrenProperty =
+            BindableProperty.Create("Children", typeof(String), typeof(QuestionCell), "Child");
+        public String Children
+        {
+            set { SetValue(ChildrenProperty, value); }
+            get { return (String) GetValue(ChildrenProperty); }    
+        }
+
         public QuestionCell()
         {
             titleLabel = new Label();
 
-            numClicked = 0;
+            qList = new List<Question>();
 
-            tempCell = new Label() { Text = "I'm a temporary child!" };
+            questionHistory = new Dictionary<string, string>();
+
+            this.SetBinding(ChildrenProperty, "ChildrenJSON");
+            this.PropertyChanged += childrenPropertyChangeHandler;
+
+            tempCell = new Label() { Text = Children };
 
             titleLabel.SetBinding(Label.TextProperty, "Title");
 
@@ -74,9 +90,49 @@ namespace Reverie
                 numClicked++;
 
                 if (isExpanded)
-                    childrenLayout.Children.Add(tempCell);
+                {
+                    foreach (Question q in qList)
+                    {
+                        childrenLayout.Children.Add(q.getLayout());
+                    }
+                }
                 else
-                    childrenLayout.Children.Remove(tempCell);
+                {
+                    for (int i = 0; i < childrenLayout.Children.Count; i++)
+                        childrenLayout.Children.RemoveAt(i);
+                }
+            }
+        }
+
+        private void childrenPropertyChangeHandler(object s, EventArgs e)
+        {
+            parseChildren(Children);
+        }
+
+        private void parseChildren(String children)
+        {
+            String[] words = children.Split(ReverieUtils.DELIMITERS);
+
+            // Remove empty strings
+            words = words.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+
+            for (int i = 1; i < words.Length; i++)
+            {
+                switch (words[i])
+                {
+                    case ReverieUtils.QUESTION_TEXT:
+                        String prompt = words[i + 2];
+                        String placeholder = words[i + 4];
+
+                        if (!questionHistory.ContainsKey(prompt))
+                        {
+                            questionHistory.Add(prompt, placeholder);
+                            qList.Add(new QuestionText(prompt, placeholder));
+                            i += 4;
+                        }
+
+                        break;
+                }
             }
         }
     }

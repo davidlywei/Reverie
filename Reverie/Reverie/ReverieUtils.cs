@@ -11,9 +11,15 @@ namespace Reverie
     {
         public static Color FRAME_GRAY = Color.Gray;
 
+        // JSON Tags
         public const String JSON_TAG_TITLE  = "QuestionTitle";
         public const String JSON_TAG_ENABLE = "QuestionEnabled";
         public const String JSON_TAG_ID     = "QuestionID";
         public const String JSON_TAG_QLIST  = "QuestionList"; 
+        public static char[] DELIMITERS = { '{', '\"', ':', ',', '[', ']', '}' };
+
+        // Types of Questions
+        public const String QUESTION_TEXT = "Text";
+
     }
 }
