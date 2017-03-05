@@ -35,11 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="QuestionCell.cs" />
+    <Compile Include="QuestionText.cs" />
+    <Compile Include="QuestionType.cs" />
+    <Compile Include="Question.cs" />
     <Compile Include="AccordionLayout.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Password.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Questionnaire.cs" />
+    <Compile Include="ReverieStyles.cs" />
+    <Compile Include="ReverieUtils.cs" />
+    <Compile Include="ViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -58,6 +65,9 @@
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="questionnaire_plan.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.180\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

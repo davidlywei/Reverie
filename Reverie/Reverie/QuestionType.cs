@@ -38,17 +38,49 @@ namespace Reverie
             get { return title; }
         }
 
-        public QuestionType(String t, int id, bool enabled)
+        public QuestionType(String s)
         {
-            Title = t;
-            idValue = id;
-            IsEnabled = enabled;
+            parseString(s);
+
             IsExpanded = false;
+        }
+
+        public void parseString(String input)
+        {
+            char[] delimiters = { '{', '\"', ':', ',', '[', ']', '}' };
+            String[] words = input.Split(delimiters);
+
+            // Remove empty strings
+            words = words.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+
+            for(int i = 0; i < words.Length; i++)
+            {
+                switch (words[i])
+                {
+                    case ReverieUtils.JSON_TAG_TITLE:
+                        Title = words[++i];
+                        break;
+                    case ReverieUtils.JSON_TAG_ENABLE:
+                        IsEnabled = Convert.ToBoolean(words[++i]);
+                        break;
+                     case ReverieUtils.JSON_TAG_ID:
+                        idValue = Convert.ToInt32(words[++i]);
+                        break;
+                 }
+            }
         }
 
         public String toString()
         {
-            String questionString = "";
+            String questionString = "{";
+
+            questionString += "\"" + ReverieUtils.JSON_TAG_TITLE + "\":\"";
+            questionString += Title + "\",";
+            questionString += "\"" + ReverieUtils.JSON_TAG_ENABLE + "\":\"";
+            questionString += (IsEnabled ? Boolean.TrueString : Boolean.FalseString) + "\",";
+            questionString += "\"" + ReverieUtils.JSON_TAG_ID + "\":\"";
+            questionString += idValue + "\",";
+            questionString += "\"" + ReverieUtils.JSON_TAG_QLIST + "\":[]}";
 
             return questionString;
         }
