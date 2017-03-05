@@ -8,25 +8,29 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class Questionnaire
+    class Questionnaire : ContentPage
     {
         ObservableCollection<QuestionType> list;
-        QuestionMenu menu;
+        ViewController view;
 
-        public Questionnaire()
+        public Questionnaire(ViewController v)
         {
             getQuestions();
 
-            menu = new QuestionMenu(list, this);
+            view = v;
+
+            BackgroundColor = ReverieUtils.PAGE_BACKGROUND_COLOR;
+
+            Content = getLayout();
         }
 
-        public StackLayout getLayout()
+        private StackLayout getLayout()
         {
             Button menuButton = new Button() { Text = "Menu" };
 
             menuButton.Clicked += (o, s) => 
             {
-                Application.Current.MainPage = new ContentPage() { Content = menu.getLayout() };
+                view.gotoMenu();
             };
 
             StackLayout qLayout = new StackLayout()
@@ -59,7 +63,7 @@ namespace Reverie
             list = new ObservableCollection<QuestionType>();
 
             for (int i = 0; i < 10; i++)
-                list.Add(new QuestionType(toString("Question #" + i, true, i, testString)));
+                list.Add(new QuestionType(toString("Question #" + i, (i % 2 == 0) ? true: false , i, testString)));
         }
 
         public String toString(String Title, bool IsEnabled, int idValue, String childrenString)
@@ -78,5 +82,9 @@ namespace Reverie
             return questionString;
         }
 
+        public ObservableCollection<QuestionType> getList()
+        {
+            return list;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace Reverie
 {
     static class ReverieUtils
     {
+        public static Color PAGE_BACKGROUND_COLOR = Color.Black;
         public static Color FRAME_GRAY = Color.Gray;
 
         // JSON Tags
@@ -21,5 +22,7 @@ namespace Reverie
         // Types of Questions
         public const String QUESTION_TEXT = "Text";
 
+        public const double QUESTIONNAIRE_PERCENT = .4;
+        public const double QUESTIONMENU_PERCENT  = .2;
     }
 }

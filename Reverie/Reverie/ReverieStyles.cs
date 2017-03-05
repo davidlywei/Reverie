@@ -36,7 +36,7 @@ namespace Reverie
             }
         };
 
-        public static Style PAGE_STYLE = new Style(typeof(ViewController))
+        public static Style VIEW_STYLE = new Style(typeof(View))
         {
             Setters =
             {
@@ -124,8 +124,49 @@ namespace Reverie
             }
         };
 
+        public static Style PAGE_STYLE = new Style(typeof(ContentPage))
+        {
+            Setters =
+            {
+                new Setter
+                {
+                    Property = ContentPage.BackgroundColorProperty,
+                    Value = Color.Black
+                }
+            }
+        };
+
+        public static Style NPAGE_STYLE = new Style(typeof(NavigationPage))
+        {
+            Setters =
+            {
+                new Setter
+                {
+                    Property = NavigationPage.BackgroundColorProperty,
+                    Value = Color.Black
+                },
+                new Setter
+                {
+                    Property = NavigationPage.BarBackgroundColorProperty,
+                    Value = Color.Black
+                },
+                new Setter // Doesn't do anything
+                {
+                    Property = NavigationPage.HasBackButtonProperty,
+                    Value = false //Boolean.FalseString
+                },
+                new Setter // Doesn't do anything
+                {
+                    Property = NavigationPage.HasNavigationBarProperty,
+                    Value = false //Boolean.FalseString
+                }
+             }
+        };
+
         public static List<Style> STYLES = new List<Style>() {  BUTTON_STYLE,
+                                                                VIEW_STYLE,
                                                                 PAGE_STYLE,
+                                                                NPAGE_STYLE,
                                                                 TEXT_STYLE,
                                                                 ENTRY_STYLE,
                                                                 FRAME_STYLE};

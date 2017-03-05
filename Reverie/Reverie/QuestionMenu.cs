@@ -8,18 +8,22 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionMenu
+    class QuestionMenu : ContentPage
     {
         ObservableCollection<QuestionType> list;
-        Questionnaire questionnairePage;
+        ViewController view;
 
-        public QuestionMenu(ObservableCollection<QuestionType> l, Questionnaire q)
+        public QuestionMenu(ObservableCollection<QuestionType> l, ViewController v)
         {
             list = l;
-            questionnairePage = q;
+            view = v;
+
+            Content = getLayout();
+
+            BackgroundColor = ReverieUtils.PAGE_BACKGROUND_COLOR;
         }
 
-        public ScrollView getLayout()
+        private ScrollView getLayout()
         {
             ScrollView menuScrollView = new ScrollView();
 
@@ -36,7 +40,7 @@ namespace Reverie
 
             menuButton.Clicked += (o, s) => 
             {
-                Application.Current.MainPage = new ContentPage() { Content = questionnairePage.getLayout() };
+                view.backOnePage();
             };
 
             menuLayout.Children.Add(menuButton);
@@ -54,7 +58,6 @@ namespace Reverie
             Frame menuItem = new Frame();
 
             Switch enabler = new Switch() { IsToggled = q.IsEnabled};
-
             enabler.Toggled += (o, s) => { q.IsEnabled = enabler.IsToggled; };
 
             StackLayout frameLayout = new StackLayout()
