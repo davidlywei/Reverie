@@ -45,6 +45,13 @@ namespace Reverie
             get { return childrenJSON; }
         }
 
+        private String response;
+        public String Response
+        {
+            set { setValue(ref response, value); }
+            get { return response; }
+        }
+
         public QuestionType(String s)
         {
             parseString(s);

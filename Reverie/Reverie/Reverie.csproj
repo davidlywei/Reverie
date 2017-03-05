@@ -35,6 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="QuestionMenu.cs" />
     <Compile Include="QuestionCell.cs" />
     <Compile Include="QuestionText.cs" />
     <Compile Include="QuestionType.cs" />

@@ -28,6 +28,14 @@ namespace Reverie
             get { return (String) GetValue(ChildrenProperty); }    
         }
 
+        private static readonly BindableProperty ResponseProperty =
+            BindableProperty.Create("Response", typeof(String), typeof(QuestionCell), "", BindingMode.TwoWay);
+        public String Response
+        {
+            set { SetValue(ResponseProperty, value); }
+            get { return (String) GetValue(ResponseProperty); }    
+        }
+
         public QuestionCell()
         {
             titleLabel = new Label();
