@@ -11,6 +11,4 @@ namespace Reverie
     {
 		String GetHash();
     }
-
-
 }

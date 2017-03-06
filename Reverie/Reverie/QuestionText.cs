@@ -14,19 +14,8 @@ namespace Reverie
         private String prompt;
         private Entry entry;
         private String placeholder;
-        private const String TYPE = "Text";
 
-        QuestionText(String p)
-        {
-            parseString(p);
-        }
-
-        private void parseString(String p)
-        {
-            
-        }
-
-        private void buildQuestionText(String p, String h)
+        public QuestionText(String p, String h, QuestionCell q)
         {
             prompt = p;
             placeholder = h;
@@ -35,18 +24,45 @@ namespace Reverie
             {
                 Placeholder = placeholder,
             };
+
+            entry.TextChanged += (o, s) => { q.updateString(); };
         }
 
-        public StackLayout getLayout()
+        public Grid getLayout()
         {
-            return new StackLayout()
+            StackLayout textLayout = new StackLayout()
             {
                 Orientation = StackOrientation.Vertical,
                 Children =  {
-                                new Label () { Text = prompt},
+                                new Label ()
+                                {
+                                    HorizontalTextAlignment = TextAlignment.Center,
+                                    Text = prompt
+                                },
                                 entry
                             }
             };
+
+            Frame questionFrame = new Frame()
+            {
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                Padding = ReverieUtils.QUESTION_LAYOUT_THICKNESS,
+                Content = textLayout
+            };
+
+            Grid questionGrid = new Grid();
+            questionGrid.ColumnDefinitions.Add(new ColumnDefinition
+                    {
+                        Width = new GridLength(1, GridUnitType.Star)
+                    });
+            questionGrid.ColumnDefinitions.Add(new ColumnDefinition
+                    {
+                        Width = new GridLength(ReverieUtils.QUESTION_LAYOUT_RATIO, GridUnitType.Star)
+                    });
+
+            questionGrid.Children.Add(questionFrame, 1, 0);
+
+            return questionGrid;
         }
 
         public String getResponse()
@@ -54,24 +70,14 @@ namespace Reverie
             return entry.Text;
         }
 
+        public String getPrompt()
+        {
+            return prompt;
+        }
+
         public String toString()
         {
-            /*
-            byte[] json;
-
-            MemoryStream stream = new MemoryStream();
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(QuestionText));
-
-            serializer.WriteObject(stream, this);
-
-            json = stream.ToArray();
-
-            stream.Dispose();
-
-            return Encoding.UTF8.GetString(json, 0, json.Length);
-            */
-
-            return " { 'Type': '" + TYPE + "', 'Prompt': '" + prompt + "', 'Placeholder': '" + placeholder + "'}";
+            return " { 'Type': '" + ReverieUtils.QUESTION_TEXT + "', 'Prompt': '" + prompt + "', 'Placeholder': '" + placeholder + "'}";
         }
     }
 }

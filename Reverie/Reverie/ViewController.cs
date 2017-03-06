@@ -9,16 +9,63 @@ namespace Reverie
 {
     class ViewController : ContentPage
     {
-        Questionnaire question;
+        private Questionnaire question;
+        private QuestionMenu menu;
+        private double percentage;
 
         public ViewController()
         {
-            question = new Questionnaire();
+            percentage = 0;
 
-            Content = question.getLayout();
-            
+            // Create Questionnaire page
+            question = new Questionnaire(this);
+            changePercentage(ReverieUtils.QUESTIONNAIRE_PERCENT);
+
+            // Create Menu page
+            menu = new QuestionMenu(question.getList(), this);
+            changePercentage(ReverieUtils.QUESTIONMENU_PERCENT);
+
+            Navigation.PushModalAsync(question);
+
             // Assign MainLayout size Change Handler
             //mainLayout.SizeChanged += sizeChangeHandler;
+        }
+
+        public async void gotoPasswordPage()
+        {
+            await Navigation.PushModalAsync(new Password(this));
+        }
+
+        public async void gotoQuestionnaire()
+        {
+            await Navigation.PushModalAsync(question);
+        }
+
+        public async void gotoMenu()
+        {
+            await Navigation.PushModalAsync(menu);
+        }
+
+        public async void backOnePage()
+        {
+            await Navigation.PopModalAsync();
+        }
+
+        public String getResponse()
+        {
+            String response = "";
+
+            response += question.getResponse();
+
+            return response; 
+        }
+
+        private void changePercentage(double percent)
+        {
+            percentage += percent;
+
+            // Insert call to change percentage page
+             
         }
 
         /*

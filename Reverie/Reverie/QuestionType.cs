@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionType : INotifyPropertyChanged
+    class QuestionType : BindableObject, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -38,6 +38,20 @@ namespace Reverie
             get { return title; }
         }
 
+        private String childrenJSON;
+        public String ChildrenJSON
+        {
+            set { setValue(ref childrenJSON, value); }
+            get { return childrenJSON; }
+        }
+
+        private String response;
+        public String ResponseQT
+        {
+            set { setValue(ref response, value); }
+            get { return response; }
+        }
+        
         public QuestionType(String s)
         {
             parseString(s);
@@ -47,8 +61,10 @@ namespace Reverie
 
         public void parseString(String input)
         {
-            char[] delimiters = { '{', '\"', ':', ',', '[', ']', '}' };
-            String[] words = input.Split(delimiters);
+            // remove string for children
+            ChildrenJSON = input.Substring(input.IndexOf(ReverieUtils.JSON_TAG_QLIST));
+
+            String[] words = input.Split(ReverieUtils.DELIMITERS);
 
             // Remove empty strings
             words = words.Where(s => !string.IsNullOrEmpty(s)).ToArray();
@@ -104,6 +120,11 @@ namespace Reverie
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
+        }
+
+        public String getResponse()
+        {
+            return ResponseQT;
         }
     }
 }
