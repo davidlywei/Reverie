@@ -49,6 +49,9 @@ namespace Reverie
         private void changePercentage(double percent)
         {
             percentage += percent;
+
+            // Insert call to change percentage page
+             
         }
 
         /*

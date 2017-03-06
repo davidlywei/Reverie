@@ -12,14 +12,15 @@ namespace Reverie
     {
         ObservableCollection<QuestionType> list;
         ViewController view;
+        QuestionReader reader;
 
         public Questionnaire(ViewController v)
         {
+            reader = new QuestionReader();
+
             getQuestions();
 
             view = v;
-
-            BackgroundColor = ReverieUtils.PAGE_BACKGROUND_COLOR;
 
             Content = getLayout();
         }
@@ -58,12 +59,21 @@ namespace Reverie
 
         private void getQuestions()
         {
+            String[] questions = reader.getQuestions();
+
+            list = new ObservableCollection<QuestionType>();
+
+            for (int i = 1; i < questions.Length; i++)
+                list.Add(new QuestionType(questions[i]));
+
+            /*
             String testString = "QuestionList\":[{\"Type\":\"" + ReverieUtils.QUESTION_TEXT + "\",\"Prompt\":\"Test Question\",\"Placeholder\":\"Enter your response here\"}";
 
             list = new ObservableCollection<QuestionType>();
 
             for (int i = 0; i < 10; i++)
                 list.Add(new QuestionType(toString("Question #" + i, (i % 2 == 0) ? true: false , i, testString)));
+            */    
         }
 
         public String toString(String Title, bool IsEnabled, int idValue, String childrenString)

@@ -20,7 +20,7 @@ namespace Reverie
 
             Content = getLayout();
 
-            BackgroundColor = ReverieUtils.PAGE_BACKGROUND_COLOR;
+            //BackgroundColor = ReverieUtils.PAGE_BACKGROUND_COLOR;
         }
 
         private ScrollView getLayout()

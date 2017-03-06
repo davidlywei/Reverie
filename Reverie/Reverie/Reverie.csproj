@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="QuestionMenu.cs" />
     <Compile Include="QuestionCell.cs" />
+    <Compile Include="QuestionReader.cs" />
     <Compile Include="QuestionText.cs" />
     <Compile Include="QuestionType.cs" />
     <Compile Include="Question.cs" />
@@ -66,6 +67,7 @@
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
+    <EmbeddedResource Include="resources\Questions.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="questionnaire_plan.txt" />

@@ -106,8 +106,10 @@ namespace Reverie
                 }
                 else
                 {
-                    for (int i = 0; i < childrenLayout.Children.Count; i++)
-                        childrenLayout.Children.RemoveAt(i);
+                    int numChildren = childrenLayout.Children.Count;
+
+                    for (int i = 0; i < numChildren; i++)
+                        childrenLayout.Children.RemoveAt(0);
                 }
             }
         }

@@ -18,6 +18,7 @@ namespace Reverie
         public const String JSON_TAG_ID     = "QuestionID";
         public const String JSON_TAG_QLIST  = "QuestionList"; 
         public static char[] DELIMITERS = { '{', '\"', ':', ',', '[', ']', '}' };
+        public static String WHITESPACE_REGEX = "\\s\\s+|\\r|\\n|\\r\\n|: ";
 
         // Types of Questions
         public const String QUESTION_TEXT = "Text";

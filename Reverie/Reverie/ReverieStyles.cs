@@ -138,6 +138,18 @@ namespace Reverie
 			}
         };
 
+        public static Style SWITCH_STYLE = new Style(typeof(Switch))
+        {
+            Setters =
+            {
+                new Setter
+                {
+                    Property = Switch.BackgroundColorProperty,
+                    Value = Color.Black
+                }
+            }
+        };
+
         public static Style PAGE_STYLE = new Style(typeof(ContentPage))
         {
             Setters =
