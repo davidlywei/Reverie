@@ -57,17 +57,26 @@ namespace Reverie
         {
             Frame menuItem = new Frame();
 
+            Label itemText = new Label() { Text = q.Title };
+            StackLayout textLayout = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.StartAndExpand,
+                Children = { itemText }
+            };
+
             Switch enabler = new Switch() { IsToggled = q.IsEnabled};
             enabler.Toggled += (o, s) => { q.IsEnabled = enabler.IsToggled; };
+            StackLayout enablerLayout = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.EndAndExpand,
+                Children = { enabler }
+
+            };
 
             StackLayout frameLayout = new StackLayout()
             {
                 Orientation = StackOrientation.Horizontal,
-                Children =
-                {
-                    new Label () { Text = q.Title },
-                    enabler
-                }
+                Children = { textLayout, enablerLayout }
             };
 
             menuItem.Content = frameLayout;

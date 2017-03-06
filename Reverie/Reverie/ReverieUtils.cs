@@ -25,5 +25,9 @@ namespace Reverie
 
         public const double QUESTIONNAIRE_PERCENT = .4;
         public const double QUESTIONMENU_PERCENT  = .2;
+
+        public const double LAYOUT_SPACING = 0;
+        public static Thickness QUESTION_LAYOUT_THICKNESS = new Thickness(10, 10, 10, 10);
+        public const int QUESTION_LAYOUT_RATIO = 8;
     }
 }

@@ -9,7 +9,7 @@ namespace Reverie
 {
     interface Question
     {
-        StackLayout getLayout();
+        Grid getLayout();
         String getResponse();
         String toString();
     }

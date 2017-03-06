@@ -31,6 +31,11 @@ namespace Reverie
             //mainLayout.SizeChanged += sizeChangeHandler;
         }
 
+        public async void gotoPasswordPage()
+        {
+            await Navigation.PushModalAsync(new Password(this));
+        }
+
         public async void gotoQuestionnaire()
         {
             await Navigation.PushModalAsync(question);
@@ -44,6 +49,15 @@ namespace Reverie
         public async void backOnePage()
         {
             await Navigation.PopModalAsync();
+        }
+
+        public String getResponse()
+        {
+            String response = "";
+
+            response += question.getResponse();
+
+            return response; 
         }
 
         private void changePercentage(double percent)

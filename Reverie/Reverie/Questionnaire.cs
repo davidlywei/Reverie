@@ -31,7 +31,7 @@ namespace Reverie
             menuButton.Clicked += (o, s) => { view.gotoMenu(); };
 
             Button doneButton = new Button() { Text = "Done" };
-            doneButton.Clicked += (o, s) => { getResponse(); };
+            doneButton.Clicked += (o, s) => { view.gotoPasswordPage(); };
 
             StackLayout navigationBar = new StackLayout()
             {
@@ -49,13 +49,13 @@ namespace Reverie
                     new AccordionLayout()
                     {
                         // Set template for items
-                        ItemTemplate = new DataTemplate(typeof(BindableObject)),
+                        ItemTemplate = new DataTemplate(typeof(QuestionCell)),
 
                         // Add items to ItemSource
                         ItemsSource = list,
 
-                        HasUnevenRows = true,
-                    }
+                        HasUnevenRows = true
+                    },
                 }
             };
 
@@ -71,14 +71,6 @@ namespace Reverie
             for (int i = 1; i < questions.Length; i++)
                 list.Add(new QuestionType(questions[i]));
 
-            /*
-            String testString = "QuestionList\":[{\"Type\":\"" + ReverieUtils.QUESTION_TEXT + "\",\"Prompt\":\"Test Question\",\"Placeholder\":\"Enter your response here\"}";
-
-            list = new ObservableCollection<QuestionType>();
-
-            for (int i = 0; i < 10; i++)
-                list.Add(new QuestionType(toString("Question #" + i, (i % 2 == 0) ? true: false , i, testString)));
-            */    
         }
 
         public String toString(String Title, bool IsEnabled, int idValue, String childrenString)

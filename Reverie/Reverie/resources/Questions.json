@@ -1,6 +1,5 @@
 ﻿{
   "QuestionList": [
-
     {
       "QuestionTitle": "Bridgekeeper Questions",
       "QuestionEnabled": "False",
@@ -53,12 +52,12 @@
           "QuestionPrompt": "What is your favorite drink on a cold morning?",
           "QuestionPlaceholder": "Enter favorite drink here"
         },
-         {
+        {
           "QuestionType": "Text",
           "QuestionPrompt": "What is your favorite snack?",
           "QuestionPlaceholder": "Enter favorite snack here"
         }
-        ]
+      ]
     },
     {
       "QuestionTitle": "Musical Preference Questions",
@@ -78,12 +77,14 @@
         {
           "QuestionType": "Text",
           "QuestionPrompt": "An opera is written about your life. What is it called?",
-          "QuestionPlaceholder": "Enter award winning opera name here"
+          "QuestionPlaceholder": "Enter opera name here"
         },
-         {
+        {
           "QuestionType": "Text",
-          "QuestionPrompt": "A Bard is tasked with following you around singing your praises. What instrument should they play to ensure that you don't kill them?",
-          "QuestionPlaceholder": "Enter tolerable instrument here"
+          "QuestionPrompt": "What is the heaviest instrument you have had to move?",
+          "QuestionPlaceholder": "Enter instrument here"
         }
-   ]
+      ]
+    }
+  ]
 }

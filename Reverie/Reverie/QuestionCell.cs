@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,39 +8,41 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class BindableObject : ViewCell
+    class QuestionCell : ViewCell, INotifyPropertyChanged
     {
         private Label titleLabel;
+        private Label arrowLabel;
         private StackLayout cellView;
         private StackLayout childrenLayout;
         private bool isExpanded;
-
-        private Label tempCell;
-        private int numClicked;
 
         private List<Question> qList;
         private Dictionary<String, String> questionHistory;
 
         private static readonly BindableProperty ChildrenProperty =
-            BindableProperty.Create("Children", typeof(String), typeof(BindableObject), "Child");
+            BindableProperty.Create("Children", typeof(String), typeof(QuestionCell), "Child");
         public String Children
         {
             set { SetValue(ChildrenProperty, value); }
             get { return (String) GetValue(ChildrenProperty); }    
         }
-
-        private static readonly BindableProperty ResponseProperty =
-            BindableProperty.Create("Response", typeof(String), typeof(BindableObject), "", BindingMode.TwoWay);
+        
+        private static readonly BindableProperty ResponsePropertyQC =
+            BindableProperty.Create("Response", typeof(String), typeof(QuestionCell), "", BindingMode.OneWayToSource);
         public String Response
         {
-            set { SetValue(ResponseProperty, value); }
-            get { return (String) GetValue(ResponseProperty); }    
+            set
+            {
+                if (value != Response)
+                {
+                    SetValue(ResponsePropertyQC, value);
+                }
+            }
+            get { return (String) GetValue(ResponsePropertyQC); }    
         }
 
-        public BindableObject()
+        public QuestionCell()
         {
-            titleLabel = new Label();
-
             qList = new List<Question>();
 
             questionHistory = new Dictionary<string, string>();
@@ -47,17 +50,15 @@ namespace Reverie
             this.SetBinding(ChildrenProperty, "ChildrenJSON");
             this.PropertyChanged += childrenPropertyChangeHandler;
 
-            this.SetBinding(ResponseProperty, "Response");
-
-            tempCell = new Label() { Text = Children };
-
-            titleLabel.SetBinding(Label.TextProperty, "Title");
+            this.SetBinding(ResponsePropertyQC, "ResponseQT");
 
             createChildrenLayout();
 
             cellView = new StackLayout()
             {
-                Children = { titleLabel, childrenLayout}
+                Spacing = ReverieUtils.LAYOUT_SPACING,
+                Padding = ReverieUtils.LAYOUT_SPACING,
+                Children = { createTitle(), childrenLayout}
             };
 
             // Bind cell visibility to IsEnabled property of QuestionType
@@ -68,9 +69,40 @@ namespace Reverie
             View = cellView;
         }
 
+        private Frame createTitle()
+        {
+            titleLabel = new Label() { FontAttributes = FontAttributes.Bold };
+            titleLabel.SetBinding(Label.TextProperty, "Title");
+            StackLayout titleLayout = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.StartAndExpand,
+                Children = { titleLabel }
+            };
+
+            arrowLabel = new Label() { Text = "v" };
+            StackLayout arrowLayout = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.EndAndExpand,
+                Children = { arrowLabel }
+            };
+
+            StackLayout headerLayout = new StackLayout()
+            {
+                Orientation = StackOrientation.Horizontal,
+                Children = { titleLayout, arrowLayout}
+            };
+            Frame headerFrame = new Frame() { Content = headerLayout };
+
+            return headerFrame;
+        }
+
         private void createChildrenLayout()
         {
-            childrenLayout = new StackLayout();
+            childrenLayout = new StackLayout()
+            {
+                Spacing = ReverieUtils.LAYOUT_SPACING,
+                Padding = ReverieUtils.LAYOUT_SPACING
+            };
 
             // Bind IsExpanded property to IsExpanded property of QuestionType
             childrenLayout.SetBinding(StackLayout.IsEnabledProperty, "IsExpanded");
@@ -97,7 +129,6 @@ namespace Reverie
             if (childrenLayout.IsEnabled != isExpanded)
             {
                 isExpanded = childrenLayout.IsEnabled;
-                numClicked++;
 
                 if (isExpanded)
                 {
@@ -105,6 +136,8 @@ namespace Reverie
                     {
                         childrenLayout.Children.Add(q.getLayout());
                     }
+
+                    arrowLabel.Text = "^";
                 }
                 else
                 {
@@ -112,6 +145,8 @@ namespace Reverie
 
                     for (int i = 0; i < numChildren; i++)
                         childrenLayout.Children.RemoveAt(0);
+
+                    arrowLabel.Text = "v";
                 }
             }
         }

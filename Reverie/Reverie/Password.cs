@@ -9,6 +9,22 @@ namespace Reverie
 {
     class Password : ContentPage
     {
+        ViewController view;
 
+        public Password(ViewController v)
+        {
+            view = v;
+
+            String responses = view.getResponse();
+
+            Content = new StackLayout()
+            {
+                Children =
+                {
+                    new Label() { Text = "Responses = "},
+                    new Label() { Text = responses }
+                }
+            };
+        }
     }
 }

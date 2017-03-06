@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionType : INotifyPropertyChanged
+    class QuestionType : BindableObject, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -46,12 +46,12 @@ namespace Reverie
         }
 
         private String response;
-        public String Response
+        public String ResponseQT
         {
             set { setValue(ref response, value); }
             get { return response; }
         }
-
+        
         public QuestionType(String s)
         {
             parseString(s);
@@ -124,7 +124,7 @@ namespace Reverie
 
         public String getResponse()
         {
-            return response;
+            return ResponseQT;
         }
     }
 }
