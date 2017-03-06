@@ -13,7 +13,7 @@ namespace Reverie
 		public static readonly Color backgroundGreen = Color.FromRgb(182, 215, 168);
 		public static readonly Color themeGreen = Color.FromRgb(147, 196, 125);
 		public static readonly Color accentGreen = Color.FromRgb(56, 118, 29);
-		//public static readonly Color orange = Color.FromRgb(246, 178, 107);
+		public static readonly Color orange = Color.FromRgb(246, 178, 107);
 
         public static Style BUTTON_STYLE = new Style(typeof(Button))
         {

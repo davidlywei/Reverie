@@ -14,6 +14,7 @@ namespace Reverie
 		Image logoImage; //diplaying logo
 		Button resetButton; //reset password button
 		StackLayout stackLayout; //stacklayout for page
+		Password passwordInterface;
 
 		public PasswordPage()
 		{
@@ -28,7 +29,7 @@ namespace Reverie
 
 			label = new Label
 			{
-				Text = Password.GetHash(),
+				Text = passwordInterface.GetHash(),
 				//Text = Password.password,
 				VerticalOptions = LayoutOptions.Start,
 				HorizontalOptions = LayoutOptions.CenterAndExpand,
@@ -70,8 +71,10 @@ namespace Reverie
 		void OnResetButtonClicked (object sender, EventArgs args)
 		{
 			//reset password value
+			label.Text = ""
 
 			//loads navigation page
+
 
 		}
 	}

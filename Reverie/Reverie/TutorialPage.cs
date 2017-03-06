@@ -15,9 +15,9 @@ namespace Reverie
 		Image tutorialImage;
 
 		//array of stirngs containing embedded image sources
-		static readonly string[] imageSource = { "Icon-Small-40.png", 
-												"icon.png", 
-												"Asset/StoreLogo.png" };
+		static readonly string[] imageSource = { "Reverie.Images.Logo.png",
+												"Reverie.Images.Logo.png", 
+												"Reverie.Images.Logo.png" };
 
 		public TutorialPage()
 		{
