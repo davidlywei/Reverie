@@ -9,6 +9,12 @@ namespace Reverie
 {
     class ReverieStyles
     {
+		//create colors from rgb values
+		static readonly Color backgroundGreen = Color.FromRgb(182, 215, 168);
+		static readonly Color themeGreen = Color.FromRgb(147, 196, 125);
+		static readonly Color accentGreen = Color.FromRgb(56, 118, 29);
+		//static readonly Color orange = Color.FromRgb(246, 178, 107);
+
         public static Style BUTTON_STYLE = new Style(typeof(Button))
         {
             Setters =
@@ -16,7 +22,7 @@ namespace Reverie
                 new Setter
                 {
                     Property = Button.BackgroundColorProperty,
-                    Value = Color.White
+                    Value = themeGreen
                 },
                 new Setter
                 {
@@ -43,9 +49,7 @@ namespace Reverie
                 new Setter
                 {
                     Property = ContentPage.BackgroundColorProperty,
-                    Value = Device.OnPlatform(  iOS: Color.Black,
-                                                Android: Color.Black,
-                                                WinPhone: Color.White)
+                    Value = backgroundGreen
                 }
             }
         };
@@ -59,13 +63,13 @@ namespace Reverie
                     Property = Label.TextProperty,
                     Value = FontAttributes.Bold
                 },
+
                 new Setter
                 {
                     Property = Label.TextColorProperty,
-                    Value = Device.OnPlatform(  iOS: Color.White,
-                                                Android: Color.White,
-                                                WinPhone: Color.Black)
+                    Value = Color.Black
                 },
+
                 new Setter
                 {
                     Property = Label.FontSizeProperty,
@@ -100,28 +104,38 @@ namespace Reverie
                 new Setter
                 {
                     Property = Entry.PlaceholderColorProperty,
-                    Value = Color.Black
+                    Value = accentGreen
                 },
                 new Setter
                 {
                     Property = Entry.BackgroundColorProperty,
-                    Value = Color.White
+					Value = Color.White
                 }
              }
         };
 
-        public static Style FRAME_STYLE = new Style(typeof(Frame))
-        {
-            Setters =
-            {
-                new Setter
-                {
-                    Property = Frame.BackgroundColorProperty,
-                    Value = Device.OnPlatform(  iOS: ReverieUtils.FRAME_GRAY,
-                                                Android: ReverieUtils.FRAME_GRAY,
-                                                WinPhone: ReverieUtils.FRAME_GRAY)
-                }
-            }
+		public static Style FRAME_STYLE = new Style(typeof(Frame))
+		{
+			Setters =
+			{
+				new Setter
+				{
+					Property = Frame.BackgroundColorProperty,
+					Value = themeGreen,
+				},
+
+				new Setter
+				{
+					Property = Frame.OutlineColorProperty,
+					Value = accentGreen
+				},
+
+				new Setter
+				{
+					Property = Frame.HasShadowProperty,
+					Value = false
+				}
+			}
         };
 
         public static Style PAGE_STYLE = new Style(typeof(ContentPage))
