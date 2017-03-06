@@ -11,6 +11,11 @@ namespace Reverie
     {
         ViewController view;
 
+		//screen width for determining tutorial page image size
+		static public int screenWidth;
+		static public int screenHeight;
+
+
         public App()
         {
             // Instantiate it with a new controller

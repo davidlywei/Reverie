@@ -22,6 +22,10 @@ namespace Reverie.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+			//get screen width and height
+			App.screenWidth = (int)UIScreen.MainScreen.Bounds.Width;
+			App.screenHeight = (int)UIScreen.MainScreen.Bounds.Height;
+
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
