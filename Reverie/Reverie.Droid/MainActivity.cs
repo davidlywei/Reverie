@@ -14,6 +14,10 @@ namespace Reverie.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+			//determine width and height of screen
+			App.screenWidth = (int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density);
+			App.screenWidth = (int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density);
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 

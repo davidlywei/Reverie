@@ -3,28 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+//using System.Security; //apparently not PCL compliant, must use in iOS or Android
 
 namespace Reverie
 {
-    class Password : ContentPage
+	public interface Password
     {
-        ViewController view;
-
-        public Password(ViewController v)
-        {
-            view = v;
-
-            String responses = view.getResponse();
-
-            Content = new StackLayout()
-            {
-                Children =
-                {
-                    new Label() { Text = "Responses = "},
-                    new Label() { Text = responses }
-                }
-            };
-        }
+		String GetHash();
     }
 }
