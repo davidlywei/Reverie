@@ -15,7 +15,7 @@ namespace Reverie
         private Entry entry;
         private String placeholder;
 
-        public QuestionText(String p, String h)
+        public QuestionText(String p, String h, BindableObject q)
         {
             prompt = p;
             placeholder = h;
@@ -24,6 +24,8 @@ namespace Reverie
             {
                 Placeholder = placeholder,
             };
+
+            entry.Completed += (o, s) => { q.updateString(); };
         }
 
         public StackLayout getLayout()

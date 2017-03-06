@@ -28,10 +28,15 @@ namespace Reverie
         private StackLayout getLayout()
         {
             Button menuButton = new Button() { Text = "Menu" };
+            menuButton.Clicked += (o, s) => { view.gotoMenu(); };
 
-            menuButton.Clicked += (o, s) => 
+            Button doneButton = new Button() { Text = "Done" };
+            doneButton.Clicked += (o, s) => { getResponse(); };
+
+            StackLayout navigationBar = new StackLayout()
             {
-                view.gotoMenu();
+                Orientation = StackOrientation.Horizontal,
+                Children = { menuButton, doneButton}
             };
 
             StackLayout qLayout = new StackLayout()
@@ -39,12 +44,12 @@ namespace Reverie
                 Orientation = StackOrientation.Vertical,
                 Children = {
                     // Menu
-                    menuButton,
+                    navigationBar,
                     // AccordionLayout
                     new AccordionLayout()
                     {
                         // Set template for items
-                        ItemTemplate = new DataTemplate(typeof(QuestionCell)),
+                        ItemTemplate = new DataTemplate(typeof(BindableObject)),
 
                         // Add items to ItemSource
                         ItemsSource = list,
@@ -95,6 +100,18 @@ namespace Reverie
         public ObservableCollection<QuestionType> getList()
         {
             return list;
+        }
+
+        public String getResponse()
+        {
+            String response = "";
+
+            foreach (QuestionType q in list)
+            {
+                response += q.getResponse();
+            }
+
+            return response;
         }
     }
 }

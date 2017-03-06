@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionCell : ViewCell
+    class BindableObject : ViewCell
     {
         private Label titleLabel;
         private StackLayout cellView;
@@ -21,7 +21,7 @@ namespace Reverie
         private Dictionary<String, String> questionHistory;
 
         private static readonly BindableProperty ChildrenProperty =
-            BindableProperty.Create("Children", typeof(String), typeof(QuestionCell), "Child");
+            BindableProperty.Create("Children", typeof(String), typeof(BindableObject), "Child");
         public String Children
         {
             set { SetValue(ChildrenProperty, value); }
@@ -29,14 +29,14 @@ namespace Reverie
         }
 
         private static readonly BindableProperty ResponseProperty =
-            BindableProperty.Create("Response", typeof(String), typeof(QuestionCell), "", BindingMode.TwoWay);
+            BindableProperty.Create("Response", typeof(String), typeof(BindableObject), "", BindingMode.TwoWay);
         public String Response
         {
             set { SetValue(ResponseProperty, value); }
             get { return (String) GetValue(ResponseProperty); }    
         }
 
-        public QuestionCell()
+        public BindableObject()
         {
             titleLabel = new Label();
 
@@ -46,6 +46,8 @@ namespace Reverie
 
             this.SetBinding(ChildrenProperty, "ChildrenJSON");
             this.PropertyChanged += childrenPropertyChangeHandler;
+
+            this.SetBinding(ResponseProperty, "Response");
 
             tempCell = new Label() { Text = Children };
 
@@ -137,12 +139,22 @@ namespace Reverie
                         if (!questionHistory.ContainsKey(prompt))
                         {
                             questionHistory.Add(prompt, placeholder);
-                            qList.Add(new QuestionText(prompt, placeholder));
+                            qList.Add(new QuestionText(prompt, placeholder, this));
                             i += 4;
                         }
 
                         break;
                 }
+            }
+        }
+
+        public void updateString()
+        {
+            Response = "";
+
+            foreach (Question q in qList)
+            {
+                Response += q.getResponse();
             }
         }
     }

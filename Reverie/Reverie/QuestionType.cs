@@ -121,5 +121,10 @@ namespace Reverie
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
+
+        public String getResponse()
+        {
+            return response;
+        }
     }
 }
