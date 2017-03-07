@@ -18,38 +18,39 @@ namespace Reverie
         public ViewController()
         {
 			//create password page
-			password = new PasswordPage(this);
-			Navigation.PushModalAsync(password);
+			//password = new PasswordPage(this);
+			//Navigation.PushModalAsync(password);
 
 
 			/*
 			//create loading page
 			loading = new LoadingPage(this);
 
-			/*
+
 			//create tutorial page
 			tutorial = new TutorialPage(this);
-			/*
+			*/
+
             // Create Questionnaire page
             question = new Questionnaire(this);
 
 			//update progress bar
-			loading.changeProgressBar(ReverieUtils.QUESTIONNAIRE_PERCENT);
+			//loading.changeProgressBar(ReverieUtils.QUESTIONNAIRE_PERCENT);
 			       
             // Create Menu page
             menu = new QuestionMenu(question.getList(), this);
 
 			//update progress bar
-			loading.changeProgressBar(ReverieUtils.QUESTIONMENU_PERCENT);
+			//loading.changeProgressBar(ReverieUtils.QUESTIONMENU_PERCENT);
 
             Navigation.PushModalAsync(question);
 
             // Assign MainLayout size Change Handler
             //mainLayout.SizeChanged += sizeChangeHandler;
-			*/
+
 
         }
-
+		/*
 		public async void gotoPurposePage()
 		{
 			//need to add a purpose page
@@ -59,7 +60,7 @@ namespace Reverie
         {
             await Navigation.PushModalAsync(new PasswordPage(this));
         }
-
+*/
         public async void gotoQuestionnaire()
         {
             await Navigation.PushModalAsync(question);

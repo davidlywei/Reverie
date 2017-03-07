@@ -31,7 +31,7 @@ namespace Reverie
             menuButton.Clicked += (o, s) => { view.gotoMenu(); };
 
             Button doneButton = new Button() { Text = "Done" };
-            doneButton.Clicked += (o, s) => { view.gotoPasswordPage(); };
+//            doneButton.Clicked += (o, s) => { view.gotoPasswordPage(); };
 
             StackLayout navigationBar = new StackLayout()
             {
@@ -39,24 +39,35 @@ namespace Reverie
                 Children = { menuButton, doneButton}
             };
 
-            StackLayout qLayout = new StackLayout()
-            {
-                Orientation = StackOrientation.Vertical,
-                Children = {
-                    // Menu
-                    navigationBar,
-                    // AccordionLayout
+			StackLayout CPMA = new StackLayout()
+			{
+				VerticalOptions = LayoutOptions.FillAndExpand,
+				Orientation = StackOrientation.Vertical,
+				Children = 
+				{ 
+				    // AccordionLayout
                     new AccordionLayout()
-                    {
+					{
                         // Set template for items
                         ItemTemplate = new DataTemplate(typeof(QuestionCell)),
 
                         // Add items to ItemSource
                         ItemsSource = list,
 
-                        HasUnevenRows = true
-                    },
-                }
+						HasUnevenRows = true
+					}
+				}
+			};
+
+            StackLayout qLayout = new StackLayout()
+            {
+                Orientation = StackOrientation.Vertical,
+                Children = {
+                    // Menu
+                    navigationBar,
+					// AccordionLayout
+					CPMA
+                 }
             };
 
             return qLayout;

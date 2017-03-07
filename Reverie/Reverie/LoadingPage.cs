@@ -78,7 +78,7 @@ namespace Reverie
 			else //when progress bar reaches 0.8
 			{
 				//go to tutorial page or go to purpose page
-				localViewController.gotoPurposePage();
+				//localViewController.gotoPurposePage();
 			}
 		}
 	}

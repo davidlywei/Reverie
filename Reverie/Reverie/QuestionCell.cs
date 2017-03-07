@@ -66,6 +66,9 @@ namespace Reverie
             // Toggle height based off of visibility 
             cellView.PropertyChanged += layoutPropertyChangedHandler;
 
+			//this.Height = 65;//(double) cellView.Height;
+			this.Height = 100;//(double) cellView.Height;
+
             View = cellView;
         }
 
@@ -120,7 +123,7 @@ namespace Reverie
             else
             {
                 // Make height of cells back to default when it is visible
-                cellView.HeightRequest = -1;
+				cellView.HeightRequest = -1;
             }            
         }
 
@@ -130,13 +133,19 @@ namespace Reverie
             {
                 isExpanded = childrenLayout.IsEnabled;
 
+				int numCells = 0;
+
                 if (isExpanded)
                 {
                     foreach (Question q in qList)
                     {
+						numCells++;
+
                         childrenLayout.Children.Add(q.getLayout());
                     }
 
+					//this.Height = 65 * numCells;
+					this.Height = 260;
                     arrowLabel.Text = "^";
                 }
                 else
@@ -145,6 +154,8 @@ namespace Reverie
 
                     for (int i = 0; i < numChildren; i++)
                         childrenLayout.Children.RemoveAt(0);
+
+					this.Height = 65;
 
                     arrowLabel.Text = "v";
                 }

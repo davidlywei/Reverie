@@ -88,7 +88,7 @@ namespace Reverie
 		void OnStartButtonClicked(object sender, EventArgs args)
 		{
 			//go to purpose page
-			localViewController.gotoPurposePage();
+			//localViewController.gotoPurposePage();
 		}
 
 	}

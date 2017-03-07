@@ -16,6 +16,7 @@ namespace Reverie
 		StackLayout stackLayout; //stacklayout for page
 		Password passwordInterface;
 		ViewController localViewController;
+		String input = "Password";
 
 		public PasswordPage(ViewController viewController)
 		{
@@ -36,7 +37,7 @@ namespace Reverie
 			passwordLabel = new Label
 			{
 				//Text = passwordInterface.GetHash(viewController.getResponse()),
-				Text = passwordInterface.GetHash("Password"),
+				Text = passwordInterface.GetHash(input),
 				VerticalOptions = LayoutOptions.Center,
 				HorizontalOptions = LayoutOptions.CenterAndExpand,
 				BackgroundColor = Color.White,
@@ -89,7 +90,7 @@ namespace Reverie
 			passwordLabel.Text = "";
 
 			//loads navigation page
-			localViewController.gotoPurposePage();
+			//localViewController.gotoPurposePage();
 
 		}
 	}
