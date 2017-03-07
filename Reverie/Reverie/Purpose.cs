@@ -76,5 +76,10 @@ namespace Reverie
         {
             return purposeEntry.Text;
         }
+
+        public void clear()
+        {
+            purposeEntry.Text = "";
+        }
     }
 }

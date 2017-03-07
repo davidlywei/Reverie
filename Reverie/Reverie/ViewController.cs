@@ -55,17 +55,10 @@ namespace Reverie
             // Create Purpose page
             purpose = new Purpose(this);
 
-            // Create Questionnaire page
-            question = new Questionnaire(this);
-
             //update progress bar
 			Percentage += ReverieUtils.QUESTIONNAIRE_PERCENT;
 			       
-            // Create Menu page
-            menu = new QuestionMenu(question.getList(), this);
-
 			//update progress bar
-            
 			Percentage += ReverieUtils.QUESTIONMENU_PERCENT;
 
             gotoFirstPage();
@@ -88,7 +81,10 @@ namespace Reverie
             {
                 await Navigation.PopModalAsync();
             }
-            await Navigation.PushModalAsync(new Purpose(this));
+
+            purpose.clear();
+
+            await Navigation.PushModalAsync(purpose);
 		}
 
         public async void gotoPasswordPage()
@@ -98,6 +94,13 @@ namespace Reverie
 
         public async void gotoQuestionnaire()
         {
+
+            // Create Questionnaire page
+            question = new Questionnaire(this);
+            
+            // Create Menu page
+            menu = new QuestionMenu(question.getList(), this);
+
             await Navigation.PushModalAsync(question);
         }
 

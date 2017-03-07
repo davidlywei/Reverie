@@ -64,7 +64,7 @@ namespace Reverie.Droid
 		protected String AddLowerCase(String s)
 		{
 			//loop thourgh all 5 vowels
-			for (int i = 0; i < passwordLength; i++)
+			for (int i = 0; i < vowelsLowerCase.Length; i++)
 			{
 				//replace uppercase vowels with lower case vowels
 				s = s.Replace(vowelsUpperCase[i], vowelsLowerCase[i]);

@@ -31,7 +31,7 @@ namespace Reverie
         }
         
         private static readonly BindableProperty ResponsePropertyQC =
-            BindableProperty.Create("Response", typeof(String), typeof(QuestionCell), "", BindingMode.OneWayToSource);
+            BindableProperty.Create("Response", typeof(String), typeof(QuestionCell), "default", BindingMode.OneWayToSource);
         public String Response
         {
             set
