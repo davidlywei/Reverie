@@ -67,11 +67,23 @@ namespace Reverie
             //mainLayout.SizeChanged += sizeChangeHandler;
         }
 
-        public async void gotoNextTutorialPage()
+        public async void gotoTutorial()
+        {
+            tutorialItr = 0;
+            gotoNextTutorialPage(true);
+        }
+
+        public async void popTutorials()
+        {
+            for (int i = 0; i < imageSource.Length; i++)
+                await Navigation.PopModalAsync();
+        }
+
+        public async void gotoNextTutorialPage(bool gotoMenu)
         {
             await Navigation.PushModalAsync(new TutorialPage(   this, 
                                                                 imageSource[tutorialItr], 
-                                                                (tutorialItr + 1 >= imageSource.Length)));
+                                                                (tutorialItr + 1 >= imageSource.Length), true));
             tutorialItr++;
         }
 
@@ -121,7 +133,7 @@ namespace Reverie
             if (!app.Properties.ContainsKey(TUTORIAL_VIEWED))
             {
                 app.Properties[TUTORIAL_VIEWED] = true;
-                gotoNextTutorialPage();
+                gotoNextTutorialPage(false);
             }
             else
             {

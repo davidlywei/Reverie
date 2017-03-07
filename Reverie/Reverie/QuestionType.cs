@@ -20,7 +20,11 @@ namespace Reverie
         private bool isEnabled;
         public bool IsEnabled
         {
-            set { setValue(ref isEnabled, value); }
+            set
+            {
+                Application.Current.Properties[Title] = value;
+                setValue(ref isEnabled, value);
+            }
             get { return isEnabled; }
         }
 
@@ -69,6 +73,8 @@ namespace Reverie
             // Remove empty strings
             words = words.Where(s => !string.IsNullOrEmpty(s)).ToArray();
 
+            Application app = Application.Current;
+
             for(int i = 0; i < words.Length; i++)
             {
                 switch (words[i])
@@ -77,7 +83,15 @@ namespace Reverie
                         Title = words[++i];
                         break;
                     case ReverieUtils.JSON_TAG_ENABLE:
-                        IsEnabled = Convert.ToBoolean(words[++i]);
+                        if (!app.Properties.ContainsKey(Title))
+                        {
+                            IsEnabled = Convert.ToBoolean(words[++i]);
+                            app.Properties[Title] = IsEnabled;
+                        }
+                        else
+                        {
+                            IsEnabled = (bool)app.Properties[Title];
+                        }
                         break;
                      case ReverieUtils.JSON_TAG_ID:
                         idValue = Convert.ToInt32(words[++i]);

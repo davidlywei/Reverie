@@ -14,9 +14,12 @@ namespace Reverie
 		ViewController localViewController;
 		StackLayout stackLayout;
 		Button startButton;
+        bool gotoMenu;
 
-		public TutorialPage(ViewController viewController, String imageSource, bool isLast)
+		public TutorialPage(ViewController viewController, String imageSource, bool isLast, bool gm)
 		{
+            gotoMenu = gm;
+
 			//assign to local view controller for reset button event handler
 			localViewController = viewController;
 
@@ -74,14 +77,21 @@ namespace Reverie
 
 		void OnStartButtonClicked(object sender, EventArgs args)
 		{
-			//go to purpose page
-			localViewController.gotoPurposePage();
+            if (gotoMenu)
+            {
+                localViewController.popTutorials();
+            }
+            else
+            {
+                //go to purpose page
+                localViewController.gotoPurposePage();
+            }
 		}
 
         void OnNextButtonClicked(object sender, EventArgs args)
 		{
 			//go to purpose page
-			localViewController.gotoNextTutorialPage();
+			localViewController.gotoNextTutorialPage(gotoMenu);
 		}
 	}
 }

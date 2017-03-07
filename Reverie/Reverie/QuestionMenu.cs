@@ -69,6 +69,8 @@ namespace Reverie
 
             menuLayout.Children.Add(controlLayout);
 
+            addDefaultMenuItems(menuLayout);
+
             foreach (QuestionType q in list)
             {
                 menuLayout.Children.Add(getMenuItems(q));
@@ -106,6 +108,21 @@ namespace Reverie
             menuItem.Content = frameLayout;
 
             return menuItem;
+        }
+
+        private void addDefaultMenuItems(StackLayout layout)
+        {
+            // Create View Tutorial
+            Button gotoTutBtn = new Button { Text = "View Tutorial" };
+            gotoTutBtn.Clicked += (o, s) => { view.gotoTutorial(); };
+
+            Frame tutFrame = new Frame()
+            {
+                HorizontalOptions = LayoutOptions.Center,
+                Content = gotoTutBtn
+            };
+
+            layout.Children.Add(tutFrame);
         }
     }
 }
