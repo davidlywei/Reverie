@@ -23,8 +23,8 @@ namespace Reverie
         // Types of Questions
         public const String QUESTION_TEXT = "Text";
 
-        public const double QUESTIONNAIRE_PERCENT = .4;
-        public const double QUESTIONMENU_PERCENT  = .8;
+        public const double QUESTIONNAIRE_PERCENT = 0.4;
+        public const double QUESTIONMENU_PERCENT  = 0.6;
 
         public const double LAYOUT_SPACING = 0;
         public static Thickness QUESTION_LAYOUT_THICKNESS = new Thickness(10, 10, 10, 10);

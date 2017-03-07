@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,32 +10,47 @@ namespace Reverie
 {
     public class ViewController : ContentPage
     {
+        public event PropertyChangedEventHandler PropertyChangedVC;
+
+        private const bool DEBUG = false;
+
 		private LoadingPage loading;
 		private TutorialPage tutorial;
         private Questionnaire question;
         private QuestionMenu menu;
-<<<<<<< HEAD
 		private PasswordPage password;
-=======
         private Purpose purpose;
+        private int tutorialItr;
+
         private double percentage;
->>>>>>> origin/davidBranch
+        public double Percentage
+        {
+            set
+            {
+                if (percentage != value)
+                {
+                    percentage = value;
+
+                    if(PropertyChangedVC != null)
+                        PropertyChangedVC(this, new PropertyChangedEventArgs("Percentage"));
+                }
+            }
+
+            get { return percentage; }
+        }
+
+		//array of stirngs containing embedded image sources
+		static readonly string[] imageSource = { "Reverie.Images.Logo.png",
+												"Reverie.Images.Logo.png", 
+												"Reverie.Images.Logo.png" };
+
+        private const String TUTORIAL_VIEWED = "Tutorial Viewed";
 
         public ViewController()
         {
-			//create password page
-			//password = new PasswordPage(this);
-			//Navigation.PushModalAsync(password);
+            Navigation.PushModalAsync(new LoadingPage(this));
 
-
-			/*
-			//create loading page
-			loading = new LoadingPage(this);
-
-
-			//create tutorial page
-			tutorial = new TutorialPage(this);
-			*/
+            tutorialItr = 0;
 
             // Create Purpose page
             purpose = new Purpose(this);
@@ -42,37 +58,44 @@ namespace Reverie
             // Create Questionnaire page
             question = new Questionnaire(this);
 
-			//update progress bar
-			//loading.changeProgressBar(ReverieUtils.QUESTIONNAIRE_PERCENT);
+            //update progress bar
+			Percentage += ReverieUtils.QUESTIONNAIRE_PERCENT;
 			       
             // Create Menu page
             menu = new QuestionMenu(question.getList(), this);
 
 			//update progress bar
-			//loading.changeProgressBar(ReverieUtils.QUESTIONMENU_PERCENT);
+            
+			Percentage += ReverieUtils.QUESTIONMENU_PERCENT;
 
-            Navigation.PushModalAsync(purpose);
+            gotoFirstPage();
 
             // Assign MainLayout size Change Handler
             //mainLayout.SizeChanged += sizeChangeHandler;
-
-
         }
-		/*
+
+        public async void gotoNextTutorialPage()
+        {
+            await Navigation.PushModalAsync(new TutorialPage(   this, 
+                                                                imageSource[tutorialItr], 
+                                                                (tutorialItr + 1 >= imageSource.Length)));
+            tutorialItr++;
+        }
+
 		public async void gotoPurposePage()
 		{
-			//need to add a purpose page
+            while (Navigation.ModalStack.Count > 0)
+            {
+                await Navigation.PopModalAsync();
+            }
+            await Navigation.PushModalAsync(new Purpose(this));
 		}
 
         public async void gotoPasswordPage()
         {
-<<<<<<< HEAD
             await Navigation.PushModalAsync(new PasswordPage(this));
-=======
-            //await Navigation.PushModalAsync(new Password(this));
->>>>>>> origin/davidBranch
         }
-*/
+
         public async void gotoQuestionnaire()
         {
             await Navigation.PushModalAsync(question);
@@ -86,6 +109,21 @@ namespace Reverie
         public async void backOnePage()
         {
             await Navigation.PopModalAsync();
+        }
+
+        public async void gotoFirstPage()
+        {
+            Application app = Application.Current;
+
+            if (!app.Properties.ContainsKey(TUTORIAL_VIEWED))
+            {
+                app.Properties[TUTORIAL_VIEWED] = true;
+                gotoNextTutorialPage();
+            }
+            else
+            {
+                gotoPurposePage();
+            }
         }
 
         public String getResponse()

@@ -12,13 +12,12 @@ namespace Reverie
 		Label label; //label displaying app name
 		Image logoImage; //diplaying logo
 		ProgressBar progressBar; //progress indication bar 
-		ViewController localViewController;
+		ViewController viewController;
+        App app;
 
-		public LoadingPage(ViewController viewController)
+		//public LoadingPage(ViewController viewController)
+        public LoadingPage(ViewController v)
 		{
-			//assign to local view controller for reset button event handler
-			localViewController = viewController;
-
 			label = new Label
 			{
 				Text = "Reverie",
@@ -45,10 +44,13 @@ namespace Reverie
 				VerticalOptions = LayoutOptions.End,
 				HorizontalOptions = LayoutOptions.Center
 			};
-			// Set the binding context: target is progressBar; source is contentpage.
-			//progressBar.BindingContext = ?;
-			// Bind the properties: target is Progress; source is ?.
-			//progressBar.SetBinding(ProgressBar.ProgressProperty, "?");
+
+			//assign to local view controller for reset button event handler
+			viewController = v;
+
+            progressBar.BindingContext = viewController;
+            progressBar.SetBinding(ProgressBar.ProgressProperty, "Percentage");
+            progressBar.PropertyChanged += changeProgressBar;
 
 			StackLayout stackLayout = new StackLayout
 			{
@@ -68,17 +70,13 @@ namespace Reverie
 			Content = stackLayout;
 		}
 
-		public void changeProgressBar(double d)
+		public void changeProgressBar(object sender, EventArgs evnt)
 		{
-			if (progressBar.Progress < .8)
+			if (progressBar.Progress >= 1)
 			{
-				//(percentage, time in ms, easing style)
-				progressBar.ProgressTo(d, 500, Easing.Linear);
-			}
-			else //when progress bar reaches 0.8
-			{
-				//go to tutorial page or go to purpose page
-				//localViewController.gotoPurposePage();
+                //go to tutorial page or go to purpose page
+                //app.MainPage = new NavigationPage(viewController);
+				viewController.gotoFirstPage();
 			}
 		}
 	}

@@ -18,11 +18,6 @@ namespace Reverie
 
         public App()
         {
-            // Instantiate it with a new controller
-            view = new ViewController();
-
-            MainPage = new NavigationPage(new ViewController());
-
             // Set Styles from PhotoFrameStyles file and 
             // load it into the default dictionary.
             Current.Resources = new ResourceDictionary();
@@ -31,6 +26,8 @@ namespace Reverie
             {
                 Current.Resources.Add(s);
             }
+
+            MainPage = new NavigationPage(new ViewController());
         }
 
         protected override void OnStart()

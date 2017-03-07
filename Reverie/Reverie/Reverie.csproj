@@ -78,7 +78,7 @@
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
     <EmbeddedResource Include="resources\Questions.json" />
-    <None Include="Images\Logo.png" />
+    <EmbeddedResource Include="Images\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\doneIcon.png" />

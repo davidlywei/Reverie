@@ -36,15 +36,8 @@ namespace Reverie
 
 			passwordLabel = new Label
 			{
-<<<<<<< HEAD
-				//Text = passwordInterface.GetHash(viewController.getResponse()),
 				Text = passwordInterface.GetHash(input),
 				VerticalOptions = LayoutOptions.Center,
-=======
-				//Text = Password.GetHash(),
-				//Text = Password.password,
-				VerticalOptions = LayoutOptions.Start,
->>>>>>> origin/davidBranch
 				HorizontalOptions = LayoutOptions.CenterAndExpand,
 				BackgroundColor = Color.White,
 				TextColor = ReverieStyles.accentGreen,
@@ -55,15 +48,11 @@ namespace Reverie
 			resetButton = new Button
 			{
 				Text = "RESET PASSWORD",
-<<<<<<< HEAD
 				FontSize = Device.OnPlatform(iOS: Device.GetNamedSize(NamedSize.Small, typeof(Label)),
 											  Android: Device.GetNamedSize(NamedSize.Small, typeof(Label)),
 											  WinPhone: Device.GetNamedSize(NamedSize.Micro, typeof(Label))),
 				BackgroundColor = ReverieStyles.orange,
 				BorderColor = Color.White,
-=======
-				//BackgroundColor = ReverieStyles.orange,
->>>>>>> origin/davidBranch
 				VerticalOptions = LayoutOptions.End,
 				HorizontalOptions = LayoutOptions.Center,
 				IsEnabled = true
