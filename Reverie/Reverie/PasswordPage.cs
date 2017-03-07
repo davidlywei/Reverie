@@ -53,7 +53,6 @@ namespace Reverie
 			resetButton = new Button
 			{
 				Text = "RESET PASSWORD",
-
 				FontSize = Device.OnPlatform(iOS: Device.GetNamedSize(NamedSize.Small, typeof(Label)),
 											  Android: Device.GetNamedSize(NamedSize.Small, typeof(Label)),
 											  WinPhone: Device.GetNamedSize(NamedSize.Micro, typeof(Label))),

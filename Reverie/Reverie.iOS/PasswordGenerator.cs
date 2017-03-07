@@ -84,7 +84,7 @@ namespace Reverie.iOS
 			foreach (byte b in hash)
 			{
 				//convert each byte of hash value to string
-				stringBuilder.Append(b.ToString());
+				stringBuilder.Append(b.ToString("X2"));
 			}
 
 			password = stringBuilder.ToString();
