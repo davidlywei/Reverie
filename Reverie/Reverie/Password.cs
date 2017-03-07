@@ -9,6 +9,6 @@ namespace Reverie
 {
 	public interface Password
     {
-		String GetHash();
+		String GetHash(String s);
     }
 }

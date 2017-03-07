@@ -50,7 +50,13 @@ namespace Reverie
                 {
                     Property = ContentPage.BackgroundColorProperty,
                     Value = backgroundGreen
-                }
+                },
+
+				new Setter
+				{
+					Property = ContentPage.PaddingProperty,
+					Value = new Thickness(5, Device.OnPlatform(20, 5, 5), 5, 5)
+				}
             }
         };
 
@@ -73,7 +79,7 @@ namespace Reverie
                 new Setter
                 {
                     Property = Label.FontSizeProperty,
-                    Value = Device.OnPlatform(iOS: Device.GetNamedSize(NamedSize.Large, typeof(Label)),
+                    Value = Device.OnPlatform(iOS: Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
                                               Android: Device.GetNamedSize(NamedSize.Large, typeof(Label)),
                                               WinPhone: Device.GetNamedSize(NamedSize.Micro, typeof(Label)))
                 }

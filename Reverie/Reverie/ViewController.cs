@@ -7,33 +7,57 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class ViewController : ContentPage
+    public class ViewController : ContentPage
     {
+		private LoadingPage loading;
+		private TutorialPage tutorial;
         private Questionnaire question;
         private QuestionMenu menu;
-        private double percentage;
+		private PasswordPage password;
 
         public ViewController()
         {
-            percentage = 0;
+			//create password page
+			password = new PasswordPage(this);
+			Navigation.PushModalAsync(password);
 
+
+			/*
+			//create loading page
+			loading = new LoadingPage(this);
+
+			/*
+			//create tutorial page
+			tutorial = new TutorialPage(this);
+			/*
             // Create Questionnaire page
             question = new Questionnaire(this);
-            changePercentage(ReverieUtils.QUESTIONNAIRE_PERCENT);
 
+			//update progress bar
+			loading.changeProgressBar(ReverieUtils.QUESTIONNAIRE_PERCENT);
+			       
             // Create Menu page
             menu = new QuestionMenu(question.getList(), this);
-            changePercentage(ReverieUtils.QUESTIONMENU_PERCENT);
+
+			//update progress bar
+			loading.changeProgressBar(ReverieUtils.QUESTIONMENU_PERCENT);
 
             Navigation.PushModalAsync(question);
 
             // Assign MainLayout size Change Handler
             //mainLayout.SizeChanged += sizeChangeHandler;
+			*/
+
         }
+
+		public async void gotoPurposePage()
+		{
+			//need to add a purpose page
+		}
 
         public async void gotoPasswordPage()
         {
-            await Navigation.PushModalAsync(new Password(this));
+            await Navigation.PushModalAsync(new PasswordPage(this));
         }
 
         public async void gotoQuestionnaire()
@@ -58,14 +82,6 @@ namespace Reverie
             response += question.getResponse();
 
             return response; 
-        }
-
-        private void changePercentage(double percent)
-        {
-            percentage += percent;
-
-            // Insert call to change percentage page
-             
         }
 
         /*

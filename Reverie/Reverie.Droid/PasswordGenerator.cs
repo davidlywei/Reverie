@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography; //apparently not PCL compliant, must use in iOS or Android
 using Mono;
 
-namespace Reverie.iOS
+namespace Reverie.Droid
 {
 	public class PasswordGenerator : Password
 	{
@@ -24,9 +24,9 @@ namespace Reverie.iOS
 		//String input = "Password"; //temperary string
 		String password = "";
 
-		public PasswordGenerator() 
+		public PasswordGenerator()
 		{
-		
+
 		}
 /*
 		public void SetPasswordLength(int length)
@@ -64,13 +64,12 @@ namespace Reverie.iOS
 				//convert each byte of hash value to string
 				stringBuilder.Append(b.ToString());
 			}
-			
+
 		}
 */
 
 		public String GetHash(String s)
 		{
-			/*
 			System.Security.Cryptography.SHA512Managed sha512 = new System.Security.Cryptography.SHA512Managed();
 
 			//compute hash value from string, returns a byte array
@@ -86,9 +85,6 @@ namespace Reverie.iOS
 			}
 
 			password = stringBuilder.ToString();
-			*/
-
-			password = s;
 
 			return password;
 		}

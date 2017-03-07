@@ -7,51 +7,89 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-	public class TutorialPage
+	public class TutorialPage : CarouselPage
 	{
-		//create carousel page
-		CarouselPage carouselPage;
 		List<ContentPage> tutorialPages = new List<ContentPage> (0);
 		Image tutorialImage;
+		ViewController localViewController;
+		StackLayout stackLayout;
+		Button startButton;
 
 		//array of stirngs containing embedded image sources
 		static readonly string[] imageSource = { "Reverie.Images.Logo.png",
 												"Reverie.Images.Logo.png", 
 												"Reverie.Images.Logo.png" };
 
-		public TutorialPage()
+		public TutorialPage(ViewController viewController)
 		{
+			//assign to local view controller for reset button event handler
+			localViewController = viewController;
+
 			//create 3 tutorial pages
-			foreach (string s in imageSource)
+			for (int i = 0; i < 3; i++)
 			{
 				//create new image from embedded sources
 				tutorialImage = new Image
 				{
 					WidthRequest = App.screenWidth,
 					HeightRequest = App.screenHeight,
-					Source = ImageSource.FromResource(s)
+					Source = ImageSource.FromResource(imageSource[i])
 				};
 
-				//display tutorial image in a new content page
-				tutorialPages.Add(new ContentPage
+
+				//add button to the last tutorial page
+				if (i == 3)
 				{
-					Content = tutorialImage
-				});
+					startButton = new Button
+					{
+						Text = "Start",
+						VerticalOptions = LayoutOptions.End,
+						HorizontalOptions = LayoutOptions.Center
+					};
+					startButton.Clicked += OnStartButtonClicked;
+
+					stackLayout = new StackLayout
+					{
+						Orientation = StackOrientation.Vertical,
+
+						Children = {
+
+							tutorialImage,
+							startButton
+						}
+					};
+
+					//display tutorial image in a new content page
+					tutorialPages.Add(new ContentPage
+					{
+						Content = stackLayout
+					});
+
+				}//ends if block
+
+				else //for other pages in tutorial
+				{
+					//display tutorial image in a new content page
+					tutorialPages.Add(new ContentPage
+					{
+						Content = tutorialImage
+					});
+				}
 
 			}
 
 			//add tutorial pages to carousel page
-			carouselPage = new CarouselPage
-			{
-				Children = {
-
-					tutorialPages[0],
-					tutorialPages[1],
-					tutorialPages[2]
-				}
-			};
+			Children.Add(tutorialPages[0]);
+			Children.Add(tutorialPages[1]);
+			Children.Add(tutorialPages[2]);
 
 		}//end constructor
+
+		void OnStartButtonClicked(object sender, EventArgs args)
+		{
+			//go to purpose page
+			localViewController.gotoPurposePage();
+		}
 
 	}
 }

@@ -7,74 +7,89 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-	public class PasswordPage
+	public class PasswordPage : ContentPage
 	{
 
-		Label label; //label displaying app name
-		Image logoImage; //diplaying logo
+		Label passwordLabel; //label displaying app name
+		Label textLabel;
 		Button resetButton; //reset password button
 		StackLayout stackLayout; //stacklayout for page
 		Password passwordInterface;
+		ViewController localViewController;
 
-		public PasswordPage()
+		public PasswordPage(ViewController viewController)
 		{
-			logoImage = new Image
+			//assign to local view controller for reset button event handler
+			localViewController = viewController; 
+
+			textLabel = new Label
 			{
-				Source = "Reverie.Images.Logo.png", // 288x292 pixels
+				Text = "Here is your password:",
 				VerticalOptions = LayoutOptions.Center,
-				HorizontalOptions = LayoutOptions.Center,
-				WidthRequest = 288
-				//HeightRequest = 292
+				HorizontalOptions = LayoutOptions.CenterAndExpand,
+				BackgroundColor = Color.White,
+				TextColor = ReverieStyles.accentGreen,
+				FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
+				FontAttributes = FontAttributes.Bold
 			};
 
-			label = new Label
+			passwordLabel = new Label
 			{
-				Text = passwordInterface.GetHash(),
-				//Text = Password.password,
-				VerticalOptions = LayoutOptions.Start,
+				//Text = passwordInterface.GetHash(viewController.getResponse()),
+				Text = passwordInterface.GetHash("Password"),
+				VerticalOptions = LayoutOptions.Center,
 				HorizontalOptions = LayoutOptions.CenterAndExpand,
-				BackgroundColor = Color.Transparent,
+				BackgroundColor = Color.White,
 				TextColor = ReverieStyles.accentGreen,
-				FontSize = Device.GetNamedSize(NamedSize.Small, typeof(Label)),
+				FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label)),
 				FontAttributes = FontAttributes.Bold
 			};
 
 			resetButton = new Button
 			{
 				Text = "RESET PASSWORD",
+				FontSize = Device.OnPlatform(iOS: Device.GetNamedSize(NamedSize.Small, typeof(Label)),
+											  Android: Device.GetNamedSize(NamedSize.Small, typeof(Label)),
+											  WinPhone: Device.GetNamedSize(NamedSize.Micro, typeof(Label))),
 				BackgroundColor = ReverieStyles.orange,
+				BorderColor = Color.White,
 				VerticalOptions = LayoutOptions.End,
-				HorizontalOptions = LayoutOptions.Center
+				HorizontalOptions = LayoutOptions.Center,
+				IsEnabled = true
 			};
 			resetButton.Clicked += OnResetButtonClicked;
 
 			stackLayout = new StackLayout
 			{
+				//Padding = new Thickness(5, Device.OnPlatform(20, 5, 5), 5, 5),
+
 				Orientation = StackOrientation.Vertical,
 
 				Children = {
               
-					//logo image
-					logoImage,
+					//simple text label
+					textLabel,
 
-					 //password label
-					label,
+					//password label
+					passwordLabel,
 
 					//reset button
 					resetButton
 
 				}
 			};
+
+			Content = stackLayout;
 		}
 
 		//event handler for reset button
-		void OnResetButtonClicked (object sender, EventArgs args)
+		void OnResetButtonClicked(object sender, EventArgs args)
 		{
 			//reset password value
-			label.Text = ""
+			passwordLabel.Text = "";
 
 			//loads navigation page
-
+			localViewController.gotoPurposePage();
 
 		}
 	}
