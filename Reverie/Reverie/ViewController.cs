@@ -130,6 +130,7 @@ namespace Reverie
         {
             String response = "";
 
+			response += purpose.getResponse();
             response += question.getResponse();
 
             return response; 

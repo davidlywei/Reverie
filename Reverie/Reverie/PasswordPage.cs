@@ -14,12 +14,15 @@ namespace Reverie
 		Label textLabel;
 		Button resetButton; //reset password button
 		StackLayout stackLayout; //stacklayout for page
-		Password passwordInterface;
+		Password passwordGen;
 		ViewController localViewController;
-		String input = "Password";
+		//String input = "Password";
+
 
 		public PasswordPage(ViewController viewController)
 		{
+			passwordGen = DependencyService.Get<Password>();	
+				
 			//assign to local view controller for reset button event handler
 			localViewController = viewController; 
 
@@ -36,8 +39,10 @@ namespace Reverie
 
 			passwordLabel = new Label
 			{
-				Text = passwordInterface.GetHash(input),
+				Text = passwordGen.GetHash(viewController.getResponse()),
+				//Text = passwordGen.GetHash(input),
 				VerticalOptions = LayoutOptions.Center,
+
 				HorizontalOptions = LayoutOptions.CenterAndExpand,
 				BackgroundColor = Color.White,
 				TextColor = ReverieStyles.accentGreen,
@@ -53,6 +58,7 @@ namespace Reverie
 											  WinPhone: Device.GetNamedSize(NamedSize.Micro, typeof(Label))),
 				BackgroundColor = ReverieStyles.orange,
 				BorderColor = Color.White,
+				
 				VerticalOptions = LayoutOptions.End,
 				HorizontalOptions = LayoutOptions.Center,
 				IsEnabled = true
@@ -61,8 +67,8 @@ namespace Reverie
 
 			stackLayout = new StackLayout
 			{
-				//Padding = new Thickness(5, Device.OnPlatform(20, 5, 5), 5, 5),
-
+				Padding = new Thickness(5, Device.OnPlatform(20, 5, 5), 5, 5),
+				VerticalOptions = LayoutOptions.CenterAndExpand,
 				Orientation = StackOrientation.Vertical,
 
 				Children = {
@@ -89,7 +95,7 @@ namespace Reverie
 			passwordLabel.Text = "";
 
 			//loads navigation page
-			//localViewController.gotoPurposePage();
+			localViewController.gotoPurposePage();
 
 		}
 	}

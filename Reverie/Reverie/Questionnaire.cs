@@ -29,9 +29,6 @@ namespace Reverie
 
         private StackLayout getLayout()
         {
-            //Button menuButton = new Button() { Text = "Menu" };
-            //menuButton.Clicked += (o, s) => { view.gotoMenu(); };
-
             Image menuImg = new Image() { Source = ImageSource.FromResource(ReverieUtils.MENU_ICON) };
             menuTGR = new TapGestureRecognizer();
             menuTGR.Tapped += (o, s) => { view.gotoMenu(); };
@@ -44,7 +41,7 @@ namespace Reverie
 
             Image doneImg = new Image() { Source = ImageSource.FromResource(ReverieUtils.DONE_ICON) };
             doneTGR = new TapGestureRecognizer();
-            doneTGR.Tapped += (o, s) => { view.gotoPasswordPage(); };
+			doneTGR.Tapped += (o, s) => { view.gotoPasswordPage(); };
             Frame doneFrame = new Frame
             {
                 Padding = ReverieUtils.BUTTON_PADDING,

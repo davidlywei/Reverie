@@ -148,8 +148,10 @@ namespace Reverie
 
                         childrenLayout.Children.Add(q.getLayout());
                     }
+
 					//this.Height = 65 * numCells;
 					//this.Height = 260;
+                   
                     arrowLayout.Children[0] = upArrowImage;
                 }
                 else
@@ -158,6 +160,7 @@ namespace Reverie
 
                     for (int i = 0; i < numChildren; i++)
                         childrenLayout.Children.RemoveAt(0);
+					
 					//this.Height = 65;
 
                     arrowLayout.Children[0] = downArrowImage;

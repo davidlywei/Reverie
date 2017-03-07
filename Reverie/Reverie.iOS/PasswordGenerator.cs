@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography; //apparently not PCL compliant, must use in iOS or Android
 using Mono;
+using Reverie.iOS;
 
+[assembly: Xamarin.Forms.Dependency(typeof(PasswordGenerator))]
 namespace Reverie.iOS
 {
 	public class PasswordGenerator : Password
@@ -70,7 +72,7 @@ namespace Reverie.iOS
 
 		public String GetHash(String s)
 		{
-			/*
+			
 			System.Security.Cryptography.SHA512Managed sha512 = new System.Security.Cryptography.SHA512Managed();
 
 			//compute hash value from string, returns a byte array
@@ -82,13 +84,13 @@ namespace Reverie.iOS
 			foreach (byte b in hash)
 			{
 				//convert each byte of hash value to string
-				stringBuilder.Append(b.ToString());
+				stringBuilder.Append(b.ToString("X2"));
 			}
 
 			password = stringBuilder.ToString();
-			*/
 
-			password = s;
+
+			//password = s;
 
 			return password;
 		}
