@@ -164,7 +164,12 @@ namespace Reverie
                 {
                     Property = ContentPage.BackgroundColorProperty,
                     Value = Color.Black
-                }
+                },
+				new Setter
+				{
+					Property = ContentPage.PaddingProperty,
+					Value = Device.OnPlatform(new Thickness(0, 20, 0, 0), 0, 0)
+				}
             }
         };
 

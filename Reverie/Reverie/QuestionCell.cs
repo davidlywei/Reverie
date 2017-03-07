@@ -73,7 +73,7 @@ namespace Reverie
             cellView.PropertyChanged += layoutPropertyChangedHandler;
 
 			//this.Height = 65;//(double) cellView.Height;
-			this.Height = 100;//(double) cellView.Height;
+			//this.Height = 100;//(double) cellView.Height;
 
             View = cellView;
         }
@@ -149,13 +149,10 @@ namespace Reverie
                         childrenLayout.Children.Add(q.getLayout());
                     }
 
-<<<<<<< HEAD
 					//this.Height = 65 * numCells;
-					this.Height = 260;
-                    arrowLabel.Text = "^";
-=======
+					//this.Height = 260;
+                   
                     arrowLayout.Children[0] = upArrowImage;
->>>>>>> origin/davidBranch
                 }
                 else
                 {
@@ -164,13 +161,9 @@ namespace Reverie
                     for (int i = 0; i < numChildren; i++)
                         childrenLayout.Children.RemoveAt(0);
 
-<<<<<<< HEAD
-					this.Height = 65;
+					//this.Height = 65;
 
-                    arrowLabel.Text = "v";
-=======
                     arrowLayout.Children[0] = downArrowImage;
->>>>>>> origin/davidBranch
                 }
             }
         }

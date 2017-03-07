@@ -13,12 +13,9 @@ namespace Reverie
 		private TutorialPage tutorial;
         private Questionnaire question;
         private QuestionMenu menu;
-<<<<<<< HEAD
 		private PasswordPage password;
-=======
         private Purpose purpose;
         private double percentage;
->>>>>>> origin/davidBranch
 
         public ViewController()
         {
@@ -58,21 +55,17 @@ namespace Reverie
 
 
         }
-		/*
+
 		public async void gotoPurposePage()
 		{
-			//need to add a purpose page
+			await Navigation.PushModalAsync(new Purpose(this));
 		}
 
         public async void gotoPasswordPage()
         {
-<<<<<<< HEAD
             await Navigation.PushModalAsync(new PasswordPage(this));
-=======
-            //await Navigation.PushModalAsync(new Password(this));
->>>>>>> origin/davidBranch
         }
-*/
+
         public async void gotoQuestionnaire()
         {
             await Navigation.PushModalAsync(question);
@@ -92,6 +85,7 @@ namespace Reverie
         {
             String response = "";
 
+			response += purpose.getResponse();
             response += question.getResponse();
 
             return response; 

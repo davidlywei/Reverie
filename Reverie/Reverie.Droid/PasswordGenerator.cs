@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography; //apparently not PCL compliant, must use in iOS or Android
 using Mono;
+using Reverie.Droid;
 
+[assembly: Xamarin.Forms.Dependency(typeof(PasswordGenerator))]
 namespace Reverie.Droid
 {
 	public class PasswordGenerator : Password
