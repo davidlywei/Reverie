@@ -13,7 +13,12 @@ namespace Reverie
 		private TutorialPage tutorial;
         private Questionnaire question;
         private QuestionMenu menu;
+<<<<<<< HEAD
 		private PasswordPage password;
+=======
+        private Purpose purpose;
+        private double percentage;
+>>>>>>> origin/davidBranch
 
         public ViewController()
         {
@@ -31,6 +36,9 @@ namespace Reverie
 			tutorial = new TutorialPage(this);
 			*/
 
+            // Create Purpose page
+            purpose = new Purpose(this);
+
             // Create Questionnaire page
             question = new Questionnaire(this);
 
@@ -43,7 +51,7 @@ namespace Reverie
 			//update progress bar
 			//loading.changeProgressBar(ReverieUtils.QUESTIONMENU_PERCENT);
 
-            Navigation.PushModalAsync(question);
+            Navigation.PushModalAsync(purpose);
 
             // Assign MainLayout size Change Handler
             //mainLayout.SizeChanged += sizeChangeHandler;
@@ -58,7 +66,11 @@ namespace Reverie
 
         public async void gotoPasswordPage()
         {
+<<<<<<< HEAD
             await Navigation.PushModalAsync(new PasswordPage(this));
+=======
+            //await Navigation.PushModalAsync(new Password(this));
+>>>>>>> origin/davidBranch
         }
 */
         public async void gotoQuestionnaire()

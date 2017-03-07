@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionCell : ViewCell, INotifyPropertyChanged
+    public class QuestionCell : ViewCell, INotifyPropertyChanged
     {
         private Label titleLabel;
         private Label arrowLabel;
@@ -18,7 +18,10 @@ namespace Reverie
 
         private List<Question> qList;
         private Dictionary<String, String> questionHistory;
-
+        private StackLayout arrowLayout;
+        private Image upArrowImage;
+        private Image downArrowImage; 
+        
         private static readonly BindableProperty ChildrenProperty =
             BindableProperty.Create("Children", typeof(String), typeof(QuestionCell), "Child");
         public String Children
@@ -43,6 +46,9 @@ namespace Reverie
 
         public QuestionCell()
         {
+            upArrowImage = new Image() { Source = ImageSource.FromResource(ReverieUtils.UP_ICON) };
+            downArrowImage = new Image() { Source = ImageSource.FromResource(ReverieUtils.DOWN_ICON) };
+
             qList = new List<Question>();
 
             questionHistory = new Dictionary<string, string>();
@@ -82,11 +88,10 @@ namespace Reverie
                 Children = { titleLabel }
             };
 
-            arrowLabel = new Label() { Text = "v" };
-            StackLayout arrowLayout = new StackLayout()
+            arrowLayout = new StackLayout()
             {
                 HorizontalOptions = LayoutOptions.EndAndExpand,
-                Children = { arrowLabel }
+                Children = { downArrowImage }
             };
 
             StackLayout headerLayout = new StackLayout()
@@ -144,9 +149,13 @@ namespace Reverie
                         childrenLayout.Children.Add(q.getLayout());
                     }
 
+<<<<<<< HEAD
 					//this.Height = 65 * numCells;
 					this.Height = 260;
                     arrowLabel.Text = "^";
+=======
+                    arrowLayout.Children[0] = upArrowImage;
+>>>>>>> origin/davidBranch
                 }
                 else
                 {
@@ -155,9 +164,13 @@ namespace Reverie
                     for (int i = 0; i < numChildren; i++)
                         childrenLayout.Children.RemoveAt(0);
 
+<<<<<<< HEAD
 					this.Height = 65;
 
                     arrowLabel.Text = "v";
+=======
+                    arrowLayout.Children[0] = downArrowImage;
+>>>>>>> origin/davidBranch
                 }
             }
         }
