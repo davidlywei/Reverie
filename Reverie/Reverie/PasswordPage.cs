@@ -39,7 +39,7 @@ namespace Reverie
 
 			passwordLabel = new Label
 			{
-				Text = passwordGen.GetHash(viewController.getResponse()),
+				Text = genPassword(),
 				//Text = passwordGen.GetHash(input),
 				VerticalOptions = LayoutOptions.Center,
 
@@ -87,6 +87,29 @@ namespace Reverie
 
 			Content = stackLayout;
 		}
+
+        private String genPassword()
+        {
+            // Get password, and Special chars, and convert them to Char arrays
+            char[] password = passwordGen.GetHash(localViewController.getResponse()).ToCharArray();
+            char[] specialChars = localViewController.getSpecialChars();
+
+            if (specialChars.Length != 0)
+            {
+                // Set the location of the character to be turned into a special char 
+                // to value based on the ASCII value of first char
+                int spcCharLoc = ((int)password[0]) % ReverieUtils.PASSWORD_LENGTH;
+                
+                // Set the chosen special char based on the ASCII value of second char
+                int spcCharIdx = ((int)password[1]) % specialChars.Length;
+
+                // Make substitution
+                password[spcCharLoc] = specialChars[spcCharIdx];
+            }
+
+            // return string
+            return new String(password);
+        }
 
 		//event handler for reset button
 		void OnResetButtonClicked(object sender, EventArgs args)

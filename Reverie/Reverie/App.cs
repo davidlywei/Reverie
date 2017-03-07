@@ -15,7 +15,6 @@ namespace Reverie
 		static public int screenWidth;
 		static public int screenHeight;
 
-
         public App()
         {
             // Set Styles from PhotoFrameStyles file and 
@@ -27,6 +26,7 @@ namespace Reverie
                 Current.Resources.Add(s);
             }
 
+            // Load ViewController
             MainPage = new NavigationPage(new ViewController());
         }
 

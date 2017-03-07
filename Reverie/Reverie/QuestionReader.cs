@@ -16,6 +16,7 @@ namespace Reverie
 
         public QuestionReader()
         {
+            // Read JSON file from resources
             Assembly currAssem = typeof(QuestionReader).GetTypeInfo().Assembly;
 
             Stream stream = currAssem.GetManifestResourceStream("Reverie.resources.Questions.json");
@@ -26,6 +27,7 @@ namespace Reverie
             }
         }
 
+        // Split json into multiple questions
         public String[] getQuestions()
         {
             Regex removeWhitespace = new Regex(ReverieUtils.WHITESPACE_REGEX);

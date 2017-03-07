@@ -22,46 +22,17 @@ namespace Reverie.Droid
 		static readonly String[] vowelsUpperCase = { "A", "E", "I", "O", "U" };
 
 
-		protected int passwordLength = 12;
+		protected int passwordLength = Reverie.ReverieUtils.PASSWORD_LENGTH;
 
 		byte[] hash; //byte array to hold sha512 hash
 
-		//String password = ""; //string to hold password
+        //String password = ""; //string to hold password
 
 
-		public PasswordGenerator()
-		{
+        public PasswordGenerator()
+        { }
 
-		}
-		/*
-				public void SetPasswordLength(int length)
-				{
-					passwordLength = length;
-				}
-
-				protected void ComputeHash(String s)
-				{
-					//s = input; //temporary hash
-
-					System.Security.Cryptography.SHA512Managed sha512 = new System.Security.Cryptography.SHA512Managed();
-
-					//compute hash value from string, returns a byte array
-					hash = sha512.ComputeHash(Encoding.UTF8.GetBytes(s));
-
-					StringBuilder stringBuilder = new StringBuilder();
-
-					//string password = ""; //empty string
-					foreach (byte b in hash)
-					{
-						//convert each byte of hash value to string
-						stringBuilder.Append(b.ToString());
-					}
-
-					password = stringBuilder.ToString();
-
-				}
-		*/
-		protected String AddLowerCase(String s)
+        protected String AddLowerCase(String s)
 		{
 			//loop thourgh all 5 vowels
 			for (int i = 0; i < vowelsLowerCase.Length; i++)

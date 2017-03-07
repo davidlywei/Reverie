@@ -18,17 +18,21 @@ namespace Reverie
 
         public Questionnaire(ViewController v)
         {
+            // Create new reader to read questions from JSON file
             reader = new QuestionReader();
 
+            // Get questions
             getQuestions();
 
             view = v;
 
+            // Create layout
             Content = getLayout();
         }
 
         private StackLayout getLayout()
         {
+            // Create menu image button
             Image menuImg = new Image() { Source = ImageSource.FromResource(ReverieUtils.MENU_ICON) };
             menuTGR = new TapGestureRecognizer();
             menuTGR.Tapped += (o, s) => { view.gotoMenu(); };
@@ -39,6 +43,7 @@ namespace Reverie
             };
             menuFrame.GestureRecognizers.Add(menuTGR);
 
+            // Create done Image button
             Image doneImg = new Image() { Source = ImageSource.FromResource(ReverieUtils.DONE_ICON) };
             doneTGR = new TapGestureRecognizer();
 			doneTGR.Tapped += (o, s) => { view.gotoPasswordPage(); };
@@ -49,6 +54,8 @@ namespace Reverie
             };
             doneFrame.GestureRecognizers.Add(doneTGR);
 
+            // Layouts for menu and button. They have separate layouts to force them to 
+            // opposite ends of the screen
             StackLayout menuLayout = new StackLayout()
             {
                 HorizontalOptions = LayoutOptions.StartAndExpand,
@@ -61,6 +68,7 @@ namespace Reverie
                 Children = { doneFrame}
             };
 
+            // Combine layouts for menu and button 
             StackLayout navigationBar = new StackLayout()
             {
                 Padding = ReverieUtils.LAYOUT_PADDING,
@@ -69,6 +77,7 @@ namespace Reverie
                 Children = { menuLayout, doneLayout}
             };
 
+            // StackLayout to attempt to force iOS Listview to expand properly
 			StackLayout CPMA = new StackLayout()
 			{
 				VerticalOptions = LayoutOptions.FillAndExpand,
@@ -89,6 +98,7 @@ namespace Reverie
 				}
 			};
 
+            // Overall questionnaire page layout
             StackLayout qLayout = new StackLayout()
             {
                 Orientation = StackOrientation.Vertical,
@@ -105,15 +115,18 @@ namespace Reverie
 
         private void getQuestions()
         {
+            // Get question Strings from reader
             String[] questions = reader.getQuestions();
 
+            // Create obs-col to store questions
             list = new ObservableCollection<QuestionType>();
 
+            // add a new QuestionType for each string (except for the header string)
             for (int i = 1; i < questions.Length; i++)
                 list.Add(new QuestionType(questions[i]));
-
         }
 
+        // To string method unused for now. Might be used for Custom Quesions
         public String toString(String Title, bool IsEnabled, int idValue, String childrenString)
         {
             String questionString = "{";
@@ -135,6 +148,7 @@ namespace Reverie
             return list;
         }
 
+        // Returns responses gathered from all QuestionTypes
         public String getResponse()
         {
             String response = "";

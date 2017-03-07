@@ -39,6 +39,7 @@ namespace Reverie
         public const String BACK_ICON = EMBEDED_IMG_LOCATION + "backIcon.png";
         public const String UP_ICON   = EMBEDED_IMG_LOCATION + "upIcon.png";
         public const String DOWN_ICON = EMBEDED_IMG_LOCATION + "downIcon.png";
-        
+
+        public const int PASSWORD_LENGTH = 12;
     }
 }

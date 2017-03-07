@@ -17,6 +17,7 @@ namespace Reverie
 
         public QuestionText(String p, String h, QuestionCell q)
         {
+            // Store prompt and placeholder
             prompt = p;
             placeholder = h;
 
@@ -25,11 +26,13 @@ namespace Reverie
                 Placeholder = placeholder,
             };
 
+            // update String
             entry.TextChanged += (o, s) => { q.updateString(); };
         }
 
         public Grid getLayout()
         {
+            // Sets the layout fo the text
             StackLayout textLayout = new StackLayout()
             {
                 Orientation = StackOrientation.Vertical,
@@ -43,6 +46,8 @@ namespace Reverie
                             }
             };
 
+            // Stores Questions in grid to get consistent formatting across screen sizes
+            // and orientations 
             Frame questionFrame = new Frame()
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -65,16 +70,19 @@ namespace Reverie
             return questionGrid;
         }
 
+        // return response
         public String getResponse()
         {
             return entry.Text;
         }
 
+        // return prompt
         public String getPrompt()
         {
             return prompt;
         }
 
+        // not used
         public String toString()
         {
             return " { 'Type': '" + ReverieUtils.QUESTION_TEXT + "', 'Prompt': '" + prompt + "', 'Placeholder': '" + placeholder + "'}";

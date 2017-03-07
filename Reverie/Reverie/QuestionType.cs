@@ -17,6 +17,7 @@ namespace Reverie
 
         private int idValue;
 
+        // Values to bind to
         private bool isEnabled;
         public bool IsEnabled
         {
@@ -75,6 +76,7 @@ namespace Reverie
 
             Application app = Application.Current;
 
+            // Parse JSON
             for(int i = 0; i < words.Length; i++)
             {
                 switch (words[i])
@@ -121,6 +123,7 @@ namespace Reverie
             IsExpanded = !IsExpanded;
         }
 
+        // generalized set value handler
         void setValue<T>(ref T variable, T value, [CallerMemberName] string propertyName = null)
         {
             if (!Object.Equals(variable, value))
@@ -130,12 +133,14 @@ namespace Reverie
             }
         }
 
+        // OnProperty changed notifier
         protected virtual void OnPropertyChanged(String property)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
         }
 
+        // Return responses gathered from questions
         public String getResponse()
         {
             return ResponseQT;

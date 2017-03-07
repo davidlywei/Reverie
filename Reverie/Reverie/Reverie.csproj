@@ -86,6 +86,9 @@
     <EmbeddedResource Include="Images\backIcon.png" />
     <EmbeddedResource Include="Images\upIcon.png" />
     <EmbeddedResource Include="Images\downIcon.png" />
+    <EmbeddedResource Include="Images\TutorialPage1.png" />
+    <EmbeddedResource Include="Images\TutorialPage2.png" />
+    <EmbeddedResource Include="Images\TutorialPage3.png" />
     <Content Include="questionnaire_plan.txt" />
   </ItemGroup>
   <ItemGroup />

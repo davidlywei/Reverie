@@ -10,9 +10,11 @@ namespace Reverie
 {
     public class QuestionMenu : ContentPage
     {
-        ObservableCollection<QuestionType> list;
-        ViewController view;
-        TapGestureRecognizer backTGR;
+        private ObservableCollection<QuestionType> list;
+        private ViewController view;
+        private TapGestureRecognizer backTGR;
+        private Entry spcCharEntry;
+        private const String SPECIAL_CHARACTERS = "Special Characters";
 
         public QuestionMenu(ObservableCollection<QuestionType> l, ViewController v)
         {
@@ -20,10 +22,9 @@ namespace Reverie
             view = v;
 
             Content = getLayout();
-
-            //BackgroundColor = ReverieUtils.PAGE_BACKGROUND_COLOR;
         }
 
+        // Create Layout
         private ScrollView getLayout()
         {
             ScrollView menuScrollView = new ScrollView();
@@ -33,10 +34,12 @@ namespace Reverie
             return menuScrollView;
         }
 
+        // Create Items
         private StackLayout getItems()
         {
             StackLayout menuLayout = new StackLayout();
 
+            // Add back button to layout
             Image backImg = new Image() { Source = ImageSource.FromResource(ReverieUtils.BACK_ICON) };
             backTGR = new TapGestureRecognizer();
             backTGR.Tapped += (o, s) => { view.backOnePage(); };
@@ -47,18 +50,21 @@ namespace Reverie
             };
             backFrame.GestureRecognizers.Add(backTGR);
 
+            // Create layout for back button
             StackLayout backLayout = new StackLayout()
             {
                 HorizontalOptions = LayoutOptions.StartAndExpand,
                 Children = { backFrame }
             };
 
+            // Create padding layout to force back button to left side
             StackLayout paddingLayout = new StackLayout()
             {
                 HorizontalOptions = LayoutOptions.EndAndExpand,
                 Children = { new Label() { Text = " "} }
             };
 
+            // Create layout for controls
             StackLayout controlLayout = new StackLayout()
             {
                 Padding = ReverieUtils.LAYOUT_PADDING,
@@ -67,10 +73,13 @@ namespace Reverie
                 Children = { backLayout, paddingLayout}
             };
 
+            // Add control layout
             menuLayout.Children.Add(controlLayout);
 
+            // Add default items
             addDefaultMenuItems(menuLayout);
 
+            // Add items from question list
             foreach (QuestionType q in list)
             {
                 menuLayout.Children.Add(getMenuItems(q));
@@ -79,10 +88,12 @@ namespace Reverie
             return menuLayout;
         }
 
+        // Create layout for Menu Items
         private Frame getMenuItems(QuestionType q)
         {
             Frame menuItem = new Frame();
 
+            // Get text for the item, and create layout
             Label itemText = new Label() { Text = q.Title };
             StackLayout textLayout = new StackLayout()
             {
@@ -90,6 +101,7 @@ namespace Reverie
                 Children = { itemText }
             };
 
+            // Create enabler, and set it to modify questionType IsEnabled
             Switch enabler = new Switch() { IsToggled = q.IsEnabled};
             enabler.Toggled += (o, s) => { q.IsEnabled = enabler.IsToggled; };
             StackLayout enablerLayout = new StackLayout()
@@ -99,6 +111,7 @@ namespace Reverie
 
             };
 
+            // package it all in a frame
             StackLayout frameLayout = new StackLayout()
             {
                 Orientation = StackOrientation.Horizontal,
@@ -110,6 +123,7 @@ namespace Reverie
             return menuItem;
         }
 
+        // Add items default to the menu
         private void addDefaultMenuItems(StackLayout layout)
         {
             // Create View Tutorial
@@ -122,7 +136,41 @@ namespace Reverie
                 Content = gotoTutBtn
             };
 
+            // Create special character layout
+            Application app = Application.Current;
+            spcCharEntry = new Entry() { Placeholder = "Enter your special characters here"};
+            spcCharEntry.TextChanged += (o, s) => { app.Properties[SPECIAL_CHARACTERS] = spcCharEntry.Text; };
+
+            if (app.Properties.ContainsKey(SPECIAL_CHARACTERS))
+            {
+                spcCharEntry.Text = (String)app.Properties[SPECIAL_CHARACTERS];
+            }
+            else
+            {
+                spcCharEntry.Text = "!@#$%^&*";
+            }
+
+            StackLayout spcCharLayout = new StackLayout()
+            {
+                Orientation = StackOrientation.Vertical,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                Children =
+                {
+                    new Label() { Text = "Password Special Characters" },
+                    spcCharEntry
+                }
+            };
+
+            Frame spcCharFrame = new Frame() { Content = spcCharLayout };
+
             layout.Children.Add(tutFrame);
+            layout.Children.Add(spcCharFrame);
+        }
+
+        // Return special character list
+        public char[] getSpecialChars()
+        {
+            return spcCharEntry.Text.ToCharArray();
         }
     }
 }

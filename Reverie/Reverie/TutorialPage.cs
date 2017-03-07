@@ -26,8 +26,8 @@ namespace Reverie
             //create new image from embedded sources
 			tutorialImage = new Image
 			{
-				//WidthRequest = App.screenWidth,
-				//HeightRequest = App.screenHeight,
+				WidthRequest = 250,
+				HeightRequest = 500,
 				Source = ImageSource.FromResource(imageSource)
 			};
 

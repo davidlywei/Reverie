@@ -21,13 +21,16 @@ namespace Reverie
         {
             if (e.Item == null)
             {
-                return; //ItemSelected is called on deselection, which results in SelectedItem being set to null
+                //ItemSelected is called on deselection, which results in SelectedItem being set to null
+                return; 
             }
             else
             {
+                // Notify that the question has been selected
                 ((QuestionType)e.Item).selected();
             }
-
+            
+            // Unhighlight the item
             ((ListView)s).SelectedItem = null;
         }
     }

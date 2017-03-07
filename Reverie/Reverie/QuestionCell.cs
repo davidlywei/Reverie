@@ -22,6 +22,7 @@ namespace Reverie
         private Image upArrowImage;
         private Image downArrowImage; 
         
+        // Create bindable property to store string to represent children in the layout
         private static readonly BindableProperty ChildrenProperty =
             BindableProperty.Create("Children", typeof(String), typeof(QuestionCell), "Child");
         public String Children
@@ -30,6 +31,7 @@ namespace Reverie
             get { return (String) GetValue(ChildrenProperty); }    
         }
         
+        // Create one way to source bindable property to send responses
         private static readonly BindableProperty ResponsePropertyQC =
             BindableProperty.Create("Response", typeof(String), typeof(QuestionCell), "default", BindingMode.OneWayToSource);
         public String Response
@@ -46,18 +48,22 @@ namespace Reverie
 
         public QuestionCell()
         {
+            // Create images for expansion indicator
             upArrowImage = new Image() { Source = ImageSource.FromResource(ReverieUtils.UP_ICON) };
             downArrowImage = new Image() { Source = ImageSource.FromResource(ReverieUtils.DOWN_ICON) };
 
             qList = new List<Question>();
 
+            // Create dictionary to filter out multiple adds
             questionHistory = new Dictionary<string, string>();
 
+            // Set bindings
             this.SetBinding(ChildrenProperty, "ChildrenJSON");
             this.PropertyChanged += childrenPropertyChangeHandler;
 
             this.SetBinding(ResponsePropertyQC, "ResponseQT");
 
+            // Create layout for children items
             createChildrenLayout();
 
             cellView = new StackLayout()
@@ -72,6 +78,7 @@ namespace Reverie
             // Toggle height based off of visibility 
             cellView.PropertyChanged += layoutPropertyChangedHandler;
 
+            // Change cellview height manually for iOS
 			//this.Height = 65;//(double) cellView.Height;
 			//this.Height = 100;//(double) cellView.Height;
 
@@ -80,6 +87,7 @@ namespace Reverie
 
         private Frame createTitle()
         {
+            // Create title label, set bindings
             titleLabel = new Label() { FontAttributes = FontAttributes.Bold };
             titleLabel.SetBinding(Label.TextProperty, "Title");
             StackLayout titleLayout = new StackLayout()
@@ -108,6 +116,7 @@ namespace Reverie
         {
             childrenLayout = new StackLayout()
             {
+                // reducing spacing as much as possible
                 Spacing = ReverieUtils.LAYOUT_SPACING,
                 Padding = ReverieUtils.LAYOUT_SPACING
             };
@@ -134,6 +143,8 @@ namespace Reverie
 
         private void expandedPropertyChangeHandler(object s, EventArgs e)
         {
+            // If enabled add items to childrenLayout
+            // if not, remove
             if (childrenLayout.IsEnabled != isExpanded)
             {
                 isExpanded = childrenLayout.IsEnabled;
@@ -170,6 +181,7 @@ namespace Reverie
 
         private void childrenPropertyChangeHandler(object s, EventArgs e)
         {
+            // Convert string to children
             parseChildren(Children);
         }
 
@@ -184,10 +196,12 @@ namespace Reverie
             {
                 switch (words[i])
                 {
+                    // Look for Text Question tag, grab values
                     case ReverieUtils.QUESTION_TEXT:
                         String prompt = words[i + 2];
                         String placeholder = words[i + 4];
 
+                        // Check if question is repeated
                         if (!questionHistory.ContainsKey(prompt))
                         {
                             questionHistory.Add(prompt, placeholder);
@@ -200,6 +214,7 @@ namespace Reverie
             }
         }
 
+        // Return string responses
         public void updateString()
         {
             Response = "";

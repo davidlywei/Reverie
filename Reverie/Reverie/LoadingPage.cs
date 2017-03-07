@@ -18,6 +18,7 @@ namespace Reverie
 		//public LoadingPage(ViewController viewController)
         public LoadingPage(ViewController v)
 		{
+            // Create Reverie Label
 			label = new Label
 			{
 				Text = "Reverie",
@@ -29,6 +30,7 @@ namespace Reverie
 				FontAttributes = FontAttributes.Bold
 			};
 
+            // Create Reverie Logo
 			logoImage = new Image
 			{
 				Source = "Reverie.Images.Logo.png", // 288x292 pixels
@@ -38,6 +40,7 @@ namespace Reverie
 				//HeightRequest = 292
 			};
 
+            // Create Progress Bar
 			progressBar = new ProgressBar
 			{
 				Progress = 0,
@@ -48,6 +51,7 @@ namespace Reverie
 			//assign to local view controller for reset button event handler
 			viewController = v;
 
+            // Set progressbar loading to percentage in ViewController
             progressBar.BindingContext = viewController;
             progressBar.SetBinding(ProgressBar.ProgressProperty, "Percentage");
             progressBar.PropertyChanged += changeProgressBar;
@@ -70,12 +74,12 @@ namespace Reverie
 			Content = stackLayout;
 		}
 
+        // Change bar handler
 		public void changeProgressBar(object sender, EventArgs evnt)
 		{
 			if (progressBar.Progress >= 1)
 			{
                 //go to tutorial page or go to purpose page
-                //app.MainPage = new NavigationPage(viewController);
 				viewController.gotoFirstPage();
 			}
 		}
