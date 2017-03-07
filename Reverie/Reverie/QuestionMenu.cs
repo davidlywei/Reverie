@@ -8,10 +8,11 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionMenu : ContentPage
+    public class QuestionMenu : ContentPage
     {
         ObservableCollection<QuestionType> list;
         ViewController view;
+        TapGestureRecognizer backTGR;
 
         public QuestionMenu(ObservableCollection<QuestionType> l, ViewController v)
         {
@@ -36,14 +37,37 @@ namespace Reverie
         {
             StackLayout menuLayout = new StackLayout();
 
-            Button menuButton = new Button() { Text = "Questionnaire" };
-
-            menuButton.Clicked += (o, s) => 
+            Image backImg = new Image() { Source = ImageSource.FromResource(ReverieUtils.BACK_ICON) };
+            backTGR = new TapGestureRecognizer();
+            backTGR.Tapped += (o, s) => { view.backOnePage(); };
+            Frame backFrame = new Frame
             {
-                view.backOnePage();
+                Padding = ReverieUtils.BUTTON_PADDING,
+                Content = backImg,
+            };
+            backFrame.GestureRecognizers.Add(backTGR);
+
+            StackLayout backLayout = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.StartAndExpand,
+                Children = { backFrame }
             };
 
-            menuLayout.Children.Add(menuButton);
+            StackLayout paddingLayout = new StackLayout()
+            {
+                HorizontalOptions = LayoutOptions.EndAndExpand,
+                Children = { new Label() { Text = " "} }
+            };
+
+            StackLayout controlLayout = new StackLayout()
+            {
+                Padding = ReverieUtils.LAYOUT_PADDING,
+                BackgroundColor = ReverieStyles.accentGreen,
+                Orientation = StackOrientation.Horizontal,
+                Children = { backLayout, paddingLayout}
+            };
+
+            menuLayout.Children.Add(controlLayout);
 
             foreach (QuestionType q in list)
             {

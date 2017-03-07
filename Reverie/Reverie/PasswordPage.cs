@@ -28,7 +28,7 @@ namespace Reverie
 
 			label = new Label
 			{
-				Text = Password.GetHash(),
+				//Text = Password.GetHash(),
 				//Text = Password.password,
 				VerticalOptions = LayoutOptions.Start,
 				HorizontalOptions = LayoutOptions.CenterAndExpand,
@@ -41,7 +41,7 @@ namespace Reverie
 			resetButton = new Button
 			{
 				Text = "RESET PASSWORD",
-				BackgroundColor = ReverieStyles.orange,
+				//BackgroundColor = ReverieStyles.orange,
 				VerticalOptions = LayoutOptions.End,
 				HorizontalOptions = LayoutOptions.Center
 			};

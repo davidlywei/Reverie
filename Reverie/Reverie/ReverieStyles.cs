@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class ReverieStyles
+    public class ReverieStyles
     {
 		//create colors from rgb values
 		public static readonly Color backgroundGreen = Color.FromRgb(182, 215, 168);

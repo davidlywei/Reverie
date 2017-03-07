@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionReader
+    public class QuestionReader
     {
         String file;
 

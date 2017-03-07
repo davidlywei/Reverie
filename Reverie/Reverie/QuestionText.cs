@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionText : Question
+    public class QuestionText : Question
     {
         private String prompt;
         private Entry entry;

@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class AccordionLayout : ListView
+    public class AccordionLayout : ListView
     {
         public AccordionLayout()
         {

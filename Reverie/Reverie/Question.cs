@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    interface Question
+    public interface Question
     {
         Grid getLayout();
         String getResponse();

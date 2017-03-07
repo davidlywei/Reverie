@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class QuestionType : BindableObject, INotifyPropertyChanged
+    public class QuestionType : BindableObject, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

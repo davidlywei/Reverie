@@ -7,15 +7,19 @@ using Xamarin.Forms;
 
 namespace Reverie
 {
-    class ViewController : ContentPage
+    public class ViewController : ContentPage
     {
         private Questionnaire question;
         private QuestionMenu menu;
+        private Purpose purpose;
         private double percentage;
 
         public ViewController()
         {
             percentage = 0;
+
+            // Create Purpose page
+            purpose = new Purpose(this);
 
             // Create Questionnaire page
             question = new Questionnaire(this);
@@ -25,7 +29,7 @@ namespace Reverie
             menu = new QuestionMenu(question.getList(), this);
             changePercentage(ReverieUtils.QUESTIONMENU_PERCENT);
 
-            Navigation.PushModalAsync(question);
+            Navigation.PushModalAsync(purpose);
 
             // Assign MainLayout size Change Handler
             //mainLayout.SizeChanged += sizeChangeHandler;
@@ -33,7 +37,7 @@ namespace Reverie
 
         public async void gotoPasswordPage()
         {
-            await Navigation.PushModalAsync(new Password(this));
+            //await Navigation.PushModalAsync(new Password(this));
         }
 
         public async void gotoQuestionnaire()
